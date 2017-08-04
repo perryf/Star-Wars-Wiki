@@ -23,13 +23,13 @@ default: &default
 
 development:
   <<: *default
-  database: starwars_development
+  database: Star-Wars-Wiki_development
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
   # When left blank, postgres will use the default role. This is
   # the same name as the operating system user that initialized the database.
-  #username: starwars
+  #username: Star-Wars-Wiki
 
   # The password associated with the postgres role (username).
   #password:
@@ -57,7 +57,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: starwars_test
+  database: Star-Wars-Wiki_test
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -80,6 +80,6 @@ test:
 #
 production:
   <<: *default
-  database: starwars_production
-  username: starwars
-  password: <%= ENV['STARWARS_DATABASE_PASSWORD'] %>
+  database: Star-Wars-Wiki_production
+  username: Star-Wars-Wiki
+  password: <%= ENV['STAR-WARS-WIKI_DATABASE_PASSWORD'] %>
