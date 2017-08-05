@@ -1,0 +1,58 @@
+<div class="edit-form">
+  <h2>Create a new Character</h2>
+  <%= form_for ([@character.alliance, @character]) do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="edit-form">
+    <%= f.label :img_url %>
+    <%= f.text_field :img_url %>
+  </div>
+
+  <div class="edit-form">
+    <%= f.label :species %>
+    <%= f.text_field :species %>
+  </div>
+
+  <div class="edit-form">
+    <%= f.label :class %>
+    <%= f.text_field :classification %>
+  </div>
+
+  <div class="edit-form">
+    <%= f.label :birth_year %>
+    <%= f.text_field :birth_year %>
+  </div>
+
+  <div class="edit-form">
+    <%= f.label :homeworld %>
+    <%= f.text_field :homeworld %>
+  </div>
+
+  <div class="edit-form">
+    <%= f.label :vehicles %>
+    <%= f.text_field :vehicles %>
+  </div>
+
+  <div class="edit-form">
+    <%= f.label :height %>
+    <%= f.text_field :height %>
+  </div>
+
+  <div class="edit-form">
+    <%= f.label :mass %>
+    <%= f.text_field :mass %>
+  </div>
+
+  <div class="edit-form">
+    <%= f.label :alliance %>
+    <%= select(:character, :alliance_id, Alliance.all.collect{|team| [team.name, team.id]})%>
+  </div>
+
+  <div class="edit-form">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<%= link_to "Destroy this Character", alliance_character_path(@character.alliance, @character), method: :delete, class: "delete character-link", :data => {:confirm => 'Are you sure?'} %>

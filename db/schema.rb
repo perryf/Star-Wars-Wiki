@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170804150138) do
+ActiveRecord::Schema.define(version: 20170804163330) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,15 +25,20 @@ ActiveRecord::Schema.define(version: 20170804150138) do
   create_table "characters", force: :cascade do |t|
     t.string "name", null: false
     t.string "species"
-    t.string "class", default: ""
+    t.string "classification", default: ""
     t.string "birth_year"
     t.string "height"
     t.string "mass"
+    t.string "homeworld"
+    t.string "vehicles"
     t.text "bio", default: ""
     t.string "catch_phrase", default: ""
     t.string "img_url"
+    t.bigint "alliance_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["alliance_id"], name: "index_characters_on_alliance_id"
   end
 
+  add_foreign_key "characters", "alliances"
 end

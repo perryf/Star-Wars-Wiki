@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
-  root to: 'alliances#index'
+  root to: 'characters#index'
 
   resources :alliances do
-    resources :charaters
+    resources :characters
   end
-  resources :charaters
+  resources :characters
 end
