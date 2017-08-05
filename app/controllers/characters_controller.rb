@@ -9,7 +9,8 @@ class CharactersController < ApplicationController
   end
 
   def create
-    Character.create!(character_params)
+    @character = Character.new(character_params)
+    @character.save
     redirect_to characters_path, notice: "Character was successfully created."
   end
 
@@ -23,7 +24,8 @@ class CharactersController < ApplicationController
   end
 
   def update
-    Character.update!(character_params)
+    @character = Character.find(params[:id])
+    @character.update(character_params)
     redirect_to characters_path, notice: "Character was successfully edited."
   end
 
