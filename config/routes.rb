@@ -4,5 +4,8 @@ Rails.application.routes.draw do
   resources :alliances do
     resources :characters
   end
+  resources :planets do
+    resources :characters
+  end
   resources :characters
 end

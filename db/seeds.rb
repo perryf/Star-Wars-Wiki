@@ -20,7 +20,7 @@ imperials = Alliance.create!({
 })
 
 neutral = Alliance.create!({
-    name: "Neutral"
+  name: "Neutral"
 })
 
 61.times do |i|
@@ -40,12 +40,18 @@ neutral = Alliance.create!({
   end
 end
 
+blank = Homeworld.create!({
+  name: "Unknown"
+})
+
 87.times do |i|
   begin
     person = JSON.parse(Swapi.get_person(i + 1))
   rescue => e
     puts e
   else
+    planet = person["homeworld"]
+    planet = planet[planet.length - 2]
     Character.create!({
     name: person["name"],
     species: person["species"],
@@ -54,8 +60,13 @@ end
     mass: person["mass"],
     vehicles: person["vehicles"] + person["starships"],
     films: person["films"],
-    homeworld: person["homeworld"],
     alliance: rebels,
+    homeworld: Homeworld.find(1)
+    # if planet == 0
+    #   homeworld: "Unknown"
+    # else
+    #   homeworld: Homeworld.find(planet)
+    # end
     })
   end
 end
