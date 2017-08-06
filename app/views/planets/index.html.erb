@@ -1,0 +1,6 @@
+<%= link_to "Create a new planet", new_planet_path %>
+<% @planets.each do |planet| %>
+  <h3><a href="<%= planet_path(planet) %>"><%= planet.name %></a></h3>
+<% end %>
+
+<%= link_to "Create a new character", new_character_path %>

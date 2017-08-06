@@ -13,6 +13,7 @@ class CreateCharacters < ActiveRecord::Migration[5.1]
       t.string :catch_phrase, default: ""
       t.string :img_url
       t.string :films
+      t.string :url
       t.references :alliance, index: true, foreign_key: true
       t.references :homeworld, index: true, foreign_key: true
       t.timestamps

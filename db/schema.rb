@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 20170806162005) do
     t.string "catch_phrase", default: ""
     t.string "img_url"
     t.string "films"
+    t.string "url"
     t.bigint "alliance_id"
     t.bigint "homeworld_id"
     t.datetime "created_at", null: false
@@ -45,11 +46,14 @@ ActiveRecord::Schema.define(version: 20170806162005) do
 
   create_table "homeworlds", force: :cascade do |t|
     t.string "name", null: false
+    t.string "bio"
+    t.string "img_url"
     t.string "climate"
     t.string "terrain"
     t.string "population"
     t.string "gravity"
     t.string "films"
+    t.string "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

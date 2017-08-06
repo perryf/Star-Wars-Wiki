@@ -35,7 +35,8 @@ neutral = Alliance.create!({
       terrain: planet["terrain"],
       population: planet["population"],
       gravity: planet["gravity"],
-      films: planet["films"]
+      films: planet["films"],
+      url: planet["url"]
       })
   end
 end
@@ -50,8 +51,7 @@ blank = Homeworld.create!({
   rescue => e
     puts e
   else
-    planet = person["homeworld"]
-    planet = planet[planet.length - 2]
+    planet = Homeworld.find_by url: person["homeworld"]
     Character.create!({
     name: person["name"],
     species: person["species"],
@@ -60,8 +60,11 @@ blank = Homeworld.create!({
     mass: person["mass"],
     vehicles: person["vehicles"] + person["starships"],
     films: person["films"],
+    url: person["url"],
     alliance: rebels,
-    homeworld: Homeworld.find(1)
+    homeworld: planet
+    # planet = person["homeworld"]
+    # planet = planet[planet.length - 2]
     # if planet == 0
     #   homeworld: "Unknown"
     # else
