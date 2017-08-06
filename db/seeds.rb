@@ -23,6 +23,44 @@ neutral = Alliance.create!({
     name: "Neutral"
 })
 
+61.times do |i|
+  begin
+    planet = JSON.parse(Swapi.get_planet(i + 1))
+  rescue => e
+    puts e
+  else
+    Homeworld.create!({
+      name: planet["name"],
+      climate: planet["climate"],
+      terrain: planet["terrain"],
+      population: planet["population"],
+      gravity: planet["gravity"],
+      films: planet["films"]
+      })
+  end
+end
+
+87.times do |i|
+  begin
+    person = JSON.parse(Swapi.get_person(i + 1))
+  rescue => e
+    puts e
+  else
+    Character.create!({
+    name: person["name"],
+    species: person["species"],
+    birth_year: person["birth_year"],
+    height: person["height"],
+    mass: person["mass"],
+    vehicles: person["vehicles"] + person["starships"],
+    films: person["films"],
+    homeworld: person["homeworld"],
+    alliance: rebels,
+    })
+  end
+end
+
+
 # character_inputs = Character.create!([
 #   {name: "Luke Skywalker",
 #       alliance: rebels
@@ -40,22 +78,3 @@ neutral = Alliance.create!({
 #       alliance: imperials
 #     }
 #   ])
-
-87.times do |i|
-  begin
-    person = JSON.parse(Swapi.get_person(i + 1))
-  rescue => e
-    puts e
-  else
-    Character.create!({
-    name: person["name"],
-    species: person["species"],
-    birth_year: person["birth_year"],
-    height: person["height"],
-    mass: person["mass"],
-    homeworld: person["homeworld"],
-    vehicles: person["vehicles"] + person["starships"],
-    alliance: rebels
-    })
-  end
-end
