@@ -13,6 +13,11 @@
   </div>
 
   <div class="edit-form">
+    <%= f.label :bio %>
+    <%= f.text_field :bio %>
+  </div>
+
+  <div class="edit-form">
     <%= f.label :species %>
     <%= f.text_field :species %>
   </div>
@@ -28,11 +33,6 @@
   </div>
 
   <div class="edit-form">
-    <%= f.label :homeworld %>
-    <%= f.text_field :homeworld %>
-  </div>
-
-  <div class="edit-form">
     <%= f.label :vehicles %>
     <%= f.text_field :vehicles %>
   </div>
@@ -45,6 +45,11 @@
   <div class="edit-form">
     <%= f.label :mass %>
     <%= f.text_field :mass %>
+  </div>
+
+  <div class="edit-form">
+    <%= f.label :homeworld %>
+    <%= select(:character, :homeworld_id, Homeworld.all.collect{|planet| [planet.name, planet.id]})%>
   </div>
 
   <div class="edit-form">

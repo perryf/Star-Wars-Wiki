@@ -1,0 +1,4 @@
+<%= link_to "Create a new planet", new_homeworld_path %>
+<% @planets.each do |planet| %>
+  <h3><a href="<%= homeworld_path(planet) %>"><%= planet.name %></a></h3>
+<% end %>

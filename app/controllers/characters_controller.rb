@@ -9,8 +9,7 @@ class CharactersController < ApplicationController
   end
 
   def create
-    @character = Character.new(character_params)
-    @character.save
+    @character = Character.create!(character_params)
     redirect_to characters_path, notice: "Character was successfully created."
   end
 
@@ -20,6 +19,7 @@ class CharactersController < ApplicationController
 
   def edit
     @alliances = Alliance.all
+    @planets = Homeworld.all
     @character = Character.find(params[:id])
   end
 
@@ -37,6 +37,6 @@ class CharactersController < ApplicationController
 
   private
   def character_params
-    params.require(:character).permit(:name, :species, :classification, :birth_year, :height, :mass, :homeworld, :vehicles, :bio, :catch_phrase, :img_url, :alliance_id)
+    params.require(:character).permit(:name, :species, :classification, :birth_year, :height, :mass, :vehicles, :bio, :catch_phrase, :img_url, :homeworld_id, :alliance_id)
   end
 end
