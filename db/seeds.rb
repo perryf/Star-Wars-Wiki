@@ -10,11 +10,13 @@ Alliance.destroy_all
 Character.destroy_all
 
 rebels = Alliance.create!({
-  name: "Rebels"
+  name: "Rebels",
+  img_url: "http://a.dilcdn.com/bl/wp-content/uploads/sites/6/2015/11/rebel-symbol.jpg"
 })
 
 imperials = Alliance.create!({
-  name: "Imperials"
+  name: "Imperials",
+  img_url: "http://a.dilcdn.com/bl/wp-content/uploads/sites/6/2016/02/imperialseal.jpg"
 })
 
 neutral = Alliance.create!({
