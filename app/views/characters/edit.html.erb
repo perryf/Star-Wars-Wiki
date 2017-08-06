@@ -1,6 +1,8 @@
 <div class="edit-form">
   <h2>Create a new Character</h2>
+</div>
   <%= form_for ([@character.alliance, @character]) do |f| %>
+  <div class="edit-form">
     <%= f.label :name %>
     <%= f.text_field :name %>
   </div>
