@@ -21,7 +21,8 @@ class AlliancesController < ApplicationController
   end
 
   def update
-    @alliance = Alliance.update(alliance_params)
+    @alliance = Alliance.find(params[:id])
+    @alliance.update(alliance_params)
     redirect_to alliance_path(@alliance), notice: "Alliance was successfully updated"
   end
 

@@ -1,0 +1,18 @@
+<div class="edit-form">
+  <h2>Create a new Alliance</h2>
+  <%= form_for (@alliance) do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="edit-form">
+    <%= f.label :img_url %>
+    <%= f.text_field :img_url %>
+  </div>
+
+  <div class="edit-form">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<%= link_to "Destroy this Alliance", alliance_path(@alliance), method: :delete, class: "delete alliance-link", :data => {:confirm => 'Are you sure?'} %>
