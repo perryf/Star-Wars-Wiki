@@ -1,9 +1,9 @@
 <h2><%= @character.name %></h2>
-<p>alliance: <%= @character.alliance.name %></p>
+<p>Alliance: <a href="<%= alliance_path(@character.alliance) %>"><%= @character.alliance.name %></a></p>
 <p>species: <%= @character.species %></p>
 <p>class: <%= @character.classification %></p>
 <p>birth_year: <%= @character.birth_year %></p>
-<p>homeworld: <%= @character.homeworld.name %></p>
+<p>homeworld: <a href="<%= homeworld_path(@character.homeworld) %>"><%= @character.homeworld.name %></a></p>
 <p>vehicles: <%= @character.vehicles %></p>
 <p>height: <%= @character.height %></p>
 <p>mass: <%= @character.mass %></p>

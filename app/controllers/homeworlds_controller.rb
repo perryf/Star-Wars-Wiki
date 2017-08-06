@@ -7,7 +7,7 @@ class HomeworldsController < ApplicationController
   end
   def create
     @planet = Homeworld.create!(planet_params)
-    redirect_to homeworld_path(@planet)
+    redirect_to homeworld_path(@planet), notice: "Planet was successfully created"
   end
   def show
     @planet = Homeworld.find(params[:id])
@@ -18,12 +18,12 @@ class HomeworldsController < ApplicationController
   def update
     @planet = Homeworld.find(params[:id])
     @planet.update(planet_params)
-    redirect_to homeworld_path(@planet)
+    redirect_to homeworld_path(@planet), notice: "Planet was successfully updated"
   end
   def destroy
     @planet = Homeworld.find(params[:id])
     @planet.destroy
-    redirect_to homeworlds_path
+    redirect_to homeworlds_path, notice: "Planet was successfully destroyed"
   end
   private
   def planet_params

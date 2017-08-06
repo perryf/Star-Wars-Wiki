@@ -9,12 +9,15 @@
   </head>
 
   <body>
-    <h1>Star Wars</h1>
-    <h2>
-      <a href="<%= alliances_path %>">Alliances</a> |
-      <a href="<%= characters_path %>">Characters</a> |
-      <a href="<%= homeworlds_path %>">Planets</a>
+    <h1 class="main-heading">Star Wars</h1>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+    <h2 class="sub-headings">
+      <a class="sub-heading" href="<%= alliances_path %>">Alliances</a>
+      <a class="sub-heading" href="<%= characters_path %>">Characters</a> 
+      <a class="sub-heading" href="<%= homeworlds_path %>">Planets</a>
     </h2>
+    <hr>
     <%= yield %>
   </body>
 </html>
