@@ -1,3 +1,6 @@
 <%= link_to "Edit this Alliance", edit_alliance_path %>
 <h2><%= @alliance.name %></h2>
 <img src="<%= @alliance.img_url %>" alt="@alliance.name">
+<% @alliance.characters.each do |character| %>
+  <a href="<%= character_path(character) %>"><p><%= character.name %></p></a>
+<% end %>

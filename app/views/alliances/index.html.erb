@@ -1,4 +1,4 @@
-
+<%= link_to "Create a new Alliance", new_alliance_path %>
 <% @alliances.each do |alliance| %>
   <h3><a href="<%= alliance_path(alliance) %>"><%= alliance.name %></a></h3>
 <% end %>
