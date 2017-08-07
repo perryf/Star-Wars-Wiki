@@ -13,13 +13,31 @@
  *= require_tree .
  *= require_self
  */
-body, a {
-  background: #ccc;
+@font-face {
+  font-family: "Jedi";
+  src: font-url('star_jedi/starjedi/Starjedi.ttf') format("truetype");
+}
+
+body {
+  font-family: "Jedi";
+  color: white;
+  background: url("277120-large-star-wars-backgrounds-x-retina.jpg") no-repeat center center fixed;
+}
+
+a {
   text-decoration: none;
+  color: #d09;
+}
+
+a:hover {
+  color: yellow;
 }
 
 .main-heading {
+  font-size: 4em;
+  color: yellow;
   text-align: center;
+  margin: 0;
 }
 
 .sub-headings {
@@ -28,6 +46,7 @@ body, a {
 }
 
 .sub-heading {
+  font-size: 1.5em;
 }
 
 .notice {
