@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170806162005) do
+ActiveRecord::Schema.define(version: 20170807161844) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,12 +24,10 @@ ActiveRecord::Schema.define(version: 20170806162005) do
 
   create_table "characters", force: :cascade do |t|
     t.string "name", null: false
-    t.string "species"
     t.string "classification", default: ""
     t.string "birth_year"
     t.string "height"
     t.string "mass"
-    t.string "homeworld"
     t.string "vehicles"
     t.text "bio", default: ""
     t.string "catch_phrase", default: ""
@@ -40,8 +38,10 @@ ActiveRecord::Schema.define(version: 20170806162005) do
     t.bigint "homeworld_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "specie_id"
     t.index ["alliance_id"], name: "index_characters_on_alliance_id"
     t.index ["homeworld_id"], name: "index_characters_on_homeworld_id"
+    t.index ["specie_id"], name: "index_characters_on_specie_id"
   end
 
   create_table "homeworlds", force: :cascade do |t|
@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 20170806162005) do
     t.string "img_url"
     t.string "climate"
     t.string "terrain"
-    t.string "population"
+    t.bigint "population"
     t.string "gravity"
     t.string "films"
     t.string "url"
@@ -58,6 +58,24 @@ ActiveRecord::Schema.define(version: 20170806162005) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "species", force: :cascade do |t|
+    t.string "name"
+    t.string "designation"
+    t.string "classification"
+    t.integer "average_height"
+    t.integer "average_lifespan"
+    t.string "skin_colors"
+    t.string "language"
+    t.string "films"
+    t.string "url"
+    t.bigint "homeworld_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["homeworld_id"], name: "index_species_on_homeworld_id"
+  end
+
   add_foreign_key "characters", "alliances"
   add_foreign_key "characters", "homeworlds"
+  add_foreign_key "characters", "species", column: "specie_id"
+  add_foreign_key "species", "homeworlds"
 end

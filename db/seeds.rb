@@ -23,6 +23,7 @@ neutral = Alliance.create!({
   name: "Neutral"
 })
 
+# Homeworlds Create
 61.times do |i|
   begin
     planet = JSON.parse(Swapi.get_planet(i + 1))
@@ -37,14 +38,34 @@ neutral = Alliance.create!({
       gravity: planet["gravity"],
       films: planet["films"],
       url: planet["url"]
-      })
+    })
   end
 end
 
-blank = Homeworld.create!({
-  name: "Unknown"
-})
+#Species Create
+37.times do |i|
+  begin
+    species = JSON.parse(Swapi.get_species(i + 1))
+  rescue => e
+    puts e
+  else
+    planet = Homeworld.find_by url: species["homeworld"]
+    Specie.create!({
+      name: species["name"],
+      designation: species["designation"],
+      classification: species["classification"],
+      average_height: species["average_height"],
+      average_lifespan: species["average_lifespan"],
+      skin_colors: species["skin_colors"],
+      language: species["languages"],
+      films: species["films"],
+      url: species["url"],
+      homeworld: planet
+    })
+  end
+end
 
+#Characters Create
 87.times do |i|
   begin
     person = JSON.parse(Swapi.get_person(i + 1))
@@ -52,9 +73,12 @@ blank = Homeworld.create!({
     puts e
   else
     planet = Homeworld.find_by url: person["homeworld"]
+    species = Specie.find_by url: person["species"]
+    # if species == nil
+    #   species = "Unknown"
+    # end
     Character.create!({
     name: person["name"],
-    species: person["species"],
     birth_year: person["birth_year"],
     height: person["height"],
     mass: person["mass"],
@@ -62,14 +86,8 @@ blank = Homeworld.create!({
     films: person["films"],
     url: person["url"],
     alliance: rebel,
+    specie: species,
     homeworld: planet
-    # planet = person["homeworld"]
-    # planet = planet[planet.length - 2]
-    # if planet == 0
-    #   homeworld: "Unknown"
-    # else
-    #   homeworld: Homeworld.find(planet)
-    # end
     })
   end
 end
