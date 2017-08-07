@@ -1,10 +1,24 @@
 <h2><%= @character.name %></h2>
 <p>Alliance: <a href="<%= alliance_path(@character.alliance) %>"><%= @character.alliance.name %></a></p>
+<% if @character.bio != "" %>
+  <p>bio: <%= @character.bio %></p>
+<% else %>
+  <p>bio: little is known about <%= @character.name %></p>
+<% end %>
+<% if @character.classification != "" %>
+  <p>class: <%= @character.classification %></p>
+  <% else %>
+    <p>class: unknown</p>
+<% end %>
 <p>species: <%= @character.species %></p>
-<p>class: <%= @character.classification %></p>
 <p>birth_year: <%= @character.birth_year %></p>
 <p>homeworld: <a href="<%= homeworld_path(@character.homeworld) %>"><%= @character.homeworld.name %></a></p>
-<p>vehicles: <%= @character.vehicles %></p>
+<% if @character.vehicles != "[]" %>
+  <p>vehicles: <%= @character.vehicles %></p>
+<% else %>
+  <p>vehicles: none</p>
+<% end %>
 <p>height: <%= @character.height %></p>
 <p>mass: <%= @character.mass %></p>
+<p>films: <%= @character.films %></p>
 <%= link_to "Edit this Character", edit_character_path %>

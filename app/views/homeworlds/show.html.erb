@@ -1,9 +1,21 @@
 <%= link_to "Edit this Planet", edit_homeworld_path %>
 <h2><%= @planet.name %></h2>
-<img src="<%= @planet.img_url %>" alt="<% @planet.name %>" width="300px">
-<p>Bio: <%= @planet.bio %></p>
+<% if @planet.img_url != nil %>
+  <img src="<%= @planet.img_url %>" alt="<% @planet.name %>" width="300px">
+<% end %>
+<% if @planet.bio != nil %>
+  <p>Bio: <%= @planet.bio %></p>
+<% else %>
+  <p>Bio: little is known about <%= @planet.name %></p>
+<% end %>
 <p>Climate: <%= @planet.climate %></p>
 <p>Terrain: <%= @planet.terrain %></p>
 <p>Population: <%= @planet.population %></p>
 <p>Gravity: <%= @planet.gravity %></p>
 <p>Films: <%= @planet.films %></p>
+<p>Notable Characters</p>
+<% @planet.characters.each do |character| %>
+  <ul>
+    <li><a href="<%= character_path(character) %>"><%= character.name %></a></li>
+  </ul>
+<% end %>
