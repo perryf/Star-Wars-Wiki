@@ -6,7 +6,7 @@ class CreateHomeworlds < ActiveRecord::Migration[5.1]
       t.string :img_url
       t.string :climate
       t.string :terrain
-      t.string :population
+      t.bigint :population
       t.string :gravity
       t.string :films
       t.string :url
