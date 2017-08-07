@@ -7,7 +7,10 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 require 'open-uri'
 Alliance.destroy_all
+Species.destroy_all
+Homeworld.destroy_all
 Character.destroy_all
+
 
 rebel = Alliance.create!({
   name: "Rebels",
@@ -42,6 +45,11 @@ neutral = Alliance.create!({
   end
 end
 
+homeworld_unknown = Homeworld.create!({
+  name: "Unknown",
+  url: ""
+  })
+
 #Species Create
 37.times do |i|
   begin
@@ -50,7 +58,10 @@ end
     puts e
   else
     planet = Homeworld.find_by url: species["homeworld"]
-    Specie.create!({
+    if planet == nil
+      planet = Homeworld.first
+    end
+    Species.create!({
       name: species["name"],
       designation: species["designation"],
       classification: species["classification"],
@@ -65,6 +76,11 @@ end
   end
 end
 
+species_unknown = Species.create!({
+  name: "unknown",
+  homeworld: homeworld_unknown
+})
+
 #Characters Create
 87.times do |i|
   begin
@@ -73,10 +89,13 @@ end
     puts e
   else
     planet = Homeworld.find_by url: person["homeworld"]
-    species = Specie.find_by url: person["species"]
-    # if species == nil
-    #   species = "Unknown"
-    # end
+    species = Species.find_by url: person["species"]
+    if species == nil
+      species = species_unknown
+    end
+    if planet == nil
+      planet = homeworld_unknown
+    end
     Character.create!({
     name: person["name"],
     birth_year: person["birth_year"],
@@ -86,8 +105,8 @@ end
     films: person["films"],
     url: person["url"],
     alliance: rebel,
-    specie: species,
-    homeworld: planet
+    homeworld: planet,
+    species: species
     })
   end
 end

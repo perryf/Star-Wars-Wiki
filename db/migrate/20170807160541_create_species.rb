@@ -2,6 +2,7 @@ class CreateSpecies < ActiveRecord::Migration[5.1]
   def change
     create_table :species do |t|
       t.string :name
+      t.string :img_url
       t.string :designation
       t.string :classification
       t.integer :average_height

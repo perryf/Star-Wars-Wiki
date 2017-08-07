@@ -19,7 +19,7 @@
     <p>class: unknown</p>
 <% end %>
 
-<p>species: <%= @character.species %></p>
+<p>species: <a href="<%= species_path(@character.species) %>"> <%= @character.species.name %></a></p>
 <p>birth_year: <%= @character.birth_year %></p>
 <p>homeworld: <a href="<%= homeworld_path(@character.homeworld) %>"><%= @character.homeworld.name %></a></p>
 <% if @character.vehicles != "[]" %>
@@ -27,7 +27,16 @@
 <% else %>
   <p>vehicles: none</p>
 <% end %>
-<p>height: <%= @character.height %></p>
+
+<% if @character.height != nil && @character.height != 0 %>
+  <p>height:
+    <%= ((@character.height*0.39).round / 12).floor %> Ft,
+    <%= (@character.height*0.39).round % 12 %> In
+  </p>
+  <% else %>
+    <p>height: unknown</p>
+  <% end %>
 <p>mass: <%= @character.mass %></p>
+
 <p>films: <%= @character.films %></p>
 <%= link_to "Edit this Character", edit_character_path %>

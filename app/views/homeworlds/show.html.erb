@@ -13,6 +13,12 @@
 <p>Population: <%= @planet.population %></p>
 <p>Gravity: <%= @planet.gravity %></p>
 <p>Films: <%= @planet.films %></p>
+<p>Inhabiting Species</p>
+<% @planet.species.each do |critter| %>
+  <ul>
+    <li><a href="<%= species_path(critter) %>"><%= critter.name %></a></li>
+  </ul>
+<% end %>
 <p>Notable Characters</p>
 <% @planet.characters.each do |character| %>
   <ul>

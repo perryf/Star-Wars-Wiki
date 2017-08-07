@@ -1,74 +1,40 @@
 class SpeciesController < ApplicationController
-  before_action :set_species, only: [:show, :edit, :update, :destroy]
 
-  # GET /species
-  # GET /species.json
   def index
-    @species = Specie.all
+    @species = Species.all
   end
 
-  # GET /species/1
-  # GET /species/1.json
-  def show
-  end
-
-  # GET /species/new
   def new
-    @species = Specie.new
+    @species = Species.new
   end
 
-  # GET /species/1/edit
-  def edit
-  end
-
-  # POST /species
-  # POST /species.json
   def create
-    @species = Specie.new(species_params)
-
-    respond_to do |format|
-      if @species.save
-        format.html { redirect_to @species, notice: 'Specie was successfully created.' }
-        format.json { render :show, status: :created, location: @species }
-      else
-        format.html { render :new }
-        format.json { render json: @species.errors, status: :unprocessable_entity }
-      end
-    end
+    @species = Species.create!(species_params)
+    redirect_to species_path(@species), notice: "Species was successfully created"
   end
 
-  # PATCH/PUT /species/1
-  # PATCH/PUT /species/1.json
+  def show
+    @species = Species.find(params[:id])
+  end
+
+  def edit
+    @species = Species.find(params[:id])
+  end
+
   def update
-    respond_to do |format|
-      if @species.update(species_params)
-        format.html { redirect_to @species, notice: 'Specie was successfully updated.' }
-        format.json { render :show, status: :ok, location: @species }
-      else
-        format.html { render :edit }
-        format.json { render json: @species.errors, status: :unprocessable_entity }
-      end
-    end
+    @species = Species.find(params[:id])
+    @species.update(species_params)
+    redirect_to species_path(@species), notice: "Species was successfully updated"
   end
 
-  # DELETE /species/1
-  # DELETE /species/1.json
   def destroy
+    @species = Species.find(params[:id])
     @species.destroy
-    respond_to do |format|
-      format.html { redirect_to species_url, notice: 'Specie was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to species_index_path, notice: "Species was successfully destoryed"
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_species
-      @species = Specie.find(params[:id])
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def species_params
-      params.fetch(:species, {})
-    end
+  def species_params
+    params.require(:species).permit(:name, :designation, :classification, :img_url, :average_height, :average_lifespan, :skin_colors, :language, :films, :homeworld_id)
+  end
 end

@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  resources :species
   root to: 'characters#index'
+  resources :species
 
   resources :alliances do
     resources :characters
