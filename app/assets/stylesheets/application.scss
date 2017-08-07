@@ -18,8 +18,12 @@
   src: font-url('star_jedi/starjedi/Starjedi.ttf') format("truetype");
 }
 
+@font-face {
+  font-family: "Jedi-hollow";
+  src: font-url('star_jedi/starjedi/Starjhol.ttf') format("truetype");
+}
+
 body {
-  font-family: "Jedi";
   color: white;
   background: url("277120-large-star-wars-backgrounds-x-retina.jpg") no-repeat center center fixed;
 }
@@ -31,6 +35,10 @@ a {
 
 a:hover {
   color: yellow;
+}
+
+header {
+  font-family: "Jedi";
 }
 
 .main-heading {

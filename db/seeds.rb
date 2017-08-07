@@ -77,8 +77,20 @@ end
 darth = Character.find_by name: "Darth Vader"
 darth.alliance = imperial
 darth.img_url = "https://lumiere-a.akamaihd.net/v1/images/Darth-Vader_6bda9114.jpeg?region=0%2C23%2C1400%2C785"
+darth.save
 
+emperor = Character.find_by name: "Palpatine"
+emperor.alliance = imperial
+emperor.img_url = "https://lumiere-a.akamaihd.net/v1/images/Emperor-Palpatine_7ac4a10e.jpeg?region=0%2C0%2C1600%2C900&width=1536"
+emperor.save
 
+luke = Character.find_by name: "Luke Skywalker"
+luke.img_url = "https://lumiere-a.akamaihd.net/v1/images/open-uri20150608-27674-1ymefwb_483d5487.jpeg?region=0%2C0%2C1200%2C675"
+luke.save
+
+yoda = Character.find_by name: "Yoda"
+yoda.img_url = "https://lumiere-a.akamaihd.net/v1/images/Yoda-Retina_2a7ecc26.jpeg?region=0%2C0%2C1536%2C864"
+yoda.save
 
 
 # character_inputs = Character.create!([
