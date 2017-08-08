@@ -36,10 +36,16 @@
     <%= f.label :mass %>
     <%= f.text_field :mass %>
   </div>
+  <% cruisers = [] %>
+  <% @character.vehicles.each do |i| %>
+    <% cruisers << i.name %>
+  <% end %>
 
   <div class="edit-form">
     <%= f.label :vehicles %>
-    <%= f.select :vehicles, Vehicle.all.collect{|vehicle| [vehicle.name, vehicle.id]}, { :prompt => "Please select"}, {:multiple => true} %>
+    <%= f.select :vehicles, Vehicle.all.collect{|vehicle| [vehicle.name, vehicle.id, {cruisers.include?(vehicle.name) :selected => "selected" }]},
+      {},
+    {:multiple => true} %>
   </div>
 
   <div class="edit-form">
