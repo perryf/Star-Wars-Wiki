@@ -9,4 +9,5 @@ Rails.application.routes.draw do
     resources :characters
   end
   resources :characters
+  resources :vehicles
 end

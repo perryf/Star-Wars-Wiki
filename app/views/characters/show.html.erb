@@ -19,12 +19,12 @@
     <p>class: unknown</p>
 <% end %>
 
-<% if @character.vehicles[0] != nil %>
-  <p>Vehicles:</p>
+<% if @character.vehicles != nil || @character.vehicles != ""%>
+  <p>Vehicles driven:</p>
   <ul>
-  <% @character.vehicles.each do |vehicle| %>
-  <li><%= vehicle.name %></li>
-  <% end %>
+    <% @character.vehicles.each do |vehicle| %>
+      <li><a href="<%= vehicle_path(vehicle) %>"><%= vehicle.name %></a></li>
+    <% end %>
   </ul>
 <% end %>
 

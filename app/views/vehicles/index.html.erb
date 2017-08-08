@@ -1,0 +1,4 @@
+<%= link_to "Create a new Vehicle", new_vehicle_path %>
+<% @vehicles.each do |vehicle| %>
+  <h3><a href="<%= vehicle_path(vehicle) %>"><%= vehicle.name %></a></h3>
+<% end %>

@@ -33,11 +33,6 @@
   </div>
 
   <div class="edit-form">
-    <%= f.label :vehicles %>
-    <%= f.text_field :vehicles %>
-  </div>
-
-  <div class="edit-form">
     <%= f.label :height %>
     <%= f.text_field :height %>
   </div>
@@ -45,6 +40,16 @@
   <div class="edit-form">
     <%= f.label :mass %>
     <%= f.text_field :mass %>
+  </div>
+
+  <div class="edit-form">
+    <%= f.label :vehicles %>
+    <%= select(:character, :vehicle_ids, Vehicle.all.collect{|vehicle| [vehicle.name, vehicle.id]}) %>
+  </div>
+
+  <div class="edit-form">
+    <%= f.label :species %>
+    <%= select(:character, :species_id, Species.all.collect{|species| [species.name, species.id]}) %>
   </div>
 
   <div class="edit-form">

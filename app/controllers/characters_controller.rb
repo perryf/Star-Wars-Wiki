@@ -18,14 +18,15 @@ class CharactersController < ApplicationController
   end
 
   def edit
-    @alliances = Alliance.all
-    @planets = Homeworld.all
     @character = Character.find(params[:id])
   end
 
   def update
     @character = Character.find(params[:id])
     @character.update(character_params)
+    params[:character][:vehicles].each do |vehicle|
+      @character.transportations.create(vehicle_id: vehicle)
+    end
     redirect_to characters_path, notice: "Character was successfully edited."
   end
 
@@ -37,6 +38,6 @@ class CharactersController < ApplicationController
 
   private
   def character_params
-    params.require(:character).permit(:name, :species, :classification, :birth_year, :height, :mass, :vehicles, :bio, :catch_phrase, :img_url, :homeworld_id, :alliance_id)
+    params.require(:character).permit(:name, :classification, :birth_year, :height, :mass, :bio, :catch_phrase, :img_url, :vehicles, :species_id, :homeworld_id, :alliance_id)
   end
 end

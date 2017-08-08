@@ -105,6 +105,29 @@ species_unknown = Species.create!({
     })
   end
 end
+#Starships added into vehicles
+100.times do |i|
+  begin
+    vehicle = JSON.parse(Swapi.get_starship(i + 1))
+  rescue => e
+    puts e
+  else
+    Vehicle.create!({
+      name: vehicle["name"],
+      model: vehicle["model"],
+      manufacturer: vehicle["manufacturer"],
+      cost_in_credits: vehicle["cost_in_credits"],
+      cargo_capacity: vehicle["cargo_capacity"],
+      vehicle_class: vehicle["vehicle_class"],
+      max_atmosphering_speed: vehicle["max_atmosphering_speed"],
+      crew: vehicle["crew"],
+      passengers: vehicle["passengers"],
+      length: vehicle["length"],
+      films: vehicle["films"],
+      url: vehicle["url"]
+    })
+  end
+end
 
 unknown_vehicle = Vehicle.create!({
   name: "unknown"
@@ -137,7 +160,17 @@ characters = []
     homeworld: planet,
     species: species
     })
+    #vehicles attached to characters through transportation
     vehicles = Vehicle.where(url: person["vehicles"])
+    if vehicles == nil
+      vehicles = unknown_vehicle
+    end
+    vehicles.each do |bike|
+      character = Character.find_by name: person["name"]
+      Transportation.create!(character: character, vehicle: bike)
+    end
+    #starships aka vehicles attached to characters through transportation
+    vehicles = Vehicle.where(url: person["starships"])
     if vehicles == nil
       vehicles = unknown_vehicle
     end
@@ -163,14 +196,14 @@ end
 #   end
 # end
 
+xwing = Vehicle.find_by name: "X-wing"
+xwing.img_url="https://lumiere-a.akamaihd.net/v1/images/open-uri20150608-27674-1uu8j7u_83e38031.jpeg?region=0%2C0%2C1200%2C507"
+xwing.save
+
 darth = Character.find_by name: "Darth Vader"
 darth.alliance = imperial
 darth.img_url = "https://lumiere-a.akamaihd.net/v1/images/Darth-Vader_6bda9114.jpeg?region=0%2C23%2C1400%2C785"
 darth.save
-
-# sand = Vehicle.find_by name: "Sand Crawler"
-#
-# darth_in_sand = Transportation.create!(character: darth, vehicle: sand)
 
 emperor = Character.find_by name: "Palpatine"
 emperor.alliance = imperial
@@ -216,6 +249,12 @@ darth_maul = Character.find_by name: "Darth Maul"
 darth_maul.alliance = imperial
 darth_maul.img_url = "https://lumiere-a.akamaihd.net/v1/images/Darth-Maul_632eb5af.jpeg?region=75%2C42%2C1525%2C858"
 darth_maul.save
+
+ackbar = Character.find_by name: "Ackbar"
+ackbar.alliance = rebel
+ackbar.catch_phrase = "It's a trap!"
+ackbar.img_url="https://lumiere-a.akamaihd.net/v1/images/admiralackbar1_2_845df144.jpeg?region=153%2C0%2C1614%2C807&width=1200"
+ackbar.save
 
 # character_inputs = Character.create!([
 #   {name: "Luke Skywalker",

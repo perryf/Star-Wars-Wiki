@@ -1,0 +1,63 @@
+<div class="edit-form">
+  <h2>Create a new Vehicle</h2>
+</div>
+  <%= form_for @vehicle do |f| %>
+  <div class="edit-form">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="edit-form">
+    <%= f.label :img_url %>
+    <%= f.text_field :img_url %>
+  </div>
+
+  <div class="edit-form">
+    <%= f.label :length %>
+    <%= f.text_field :length %>
+  </div>
+
+  <div class="edit-form">
+    <%= f.label :model %>
+    <%= f.text_field :model %>
+  </div>
+
+  <div class="edit-form">
+    <%= f.label :manufacturer %>
+    <%= f.text_field :manufacturer %>
+  </div>
+
+  <div class="edit-form">
+    <%= f.label :cost_in_credits %>
+    <%= f.text_field :cost_in_credits %>
+  </div>
+
+  <div class="edit-form">
+    <%= f.label :cargo_capacity %>
+    <%= f.text_field :cargo_capacity %>
+  </div>
+
+  <div class="edit-form">
+    <%= f.label :vehicle_class %>
+    <%= f.text_field :vehicle_class %>
+  </div>
+
+  <div class="edit-form">
+    <%= f.label :max_speed %>
+    <%= f.text_field :max_atmosphering_speed %>
+  </div>
+
+  <div class="edit-form">
+    <%= f.label :number_of_crew %>
+    <%= f.text_field :crew %>
+  </div>
+
+  <div class="edit-form">
+    <%= f.label :number_of_passengers %>
+    <%= f.text_field :passengers %>
+  </div>
+
+  <div class="edit-form">
+    <%= f.submit %>
+  </div>
+<% end %>
