@@ -6,7 +6,6 @@ class CreateCharacters < ActiveRecord::Migration[5.1]
       t.string :birth_year
       t.integer :height
       t.integer :mass
-      t.string :vehicles
       t.text :bio, default: ""
       t.string :catch_phrase, default: ""
       t.string :img_url

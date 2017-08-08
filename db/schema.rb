@@ -28,7 +28,6 @@ ActiveRecord::Schema.define(version: 20170808003816) do
     t.string "birth_year"
     t.integer "height"
     t.integer "mass"
-    t.string "vehicles"
     t.text "bio", default: ""
     t.string "catch_phrase", default: ""
     t.string "img_url"
