@@ -20,7 +20,12 @@
 <% end %>
 
 <% if @character.vehicles[0] != nil %>
-  <p>vehicles: <%= @character.vehicles[0].name %></p>
+  <p>Vehicles:</p>
+  <ul>
+  <% @character.vehicles.each do |vehicle| %>
+  <li><%= vehicle.name %></li>
+  <% end %>
+  </ul>
 <% end %>
 
 <p>species: <a href="<%= species_path(@character.species) %>"> <%= @character.species.name %></a></p>

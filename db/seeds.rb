@@ -137,11 +137,18 @@ characters = []
     homeworld: planet,
     species: species
     })
-    vehicle = Vehicle.find_by url: person["vehicles"][0]
-    character = Character.find_by name: person["name"]
-    Transportation.create!(character: character, vehicle: vehicle)
+    vehicles = Vehicle.where(url: person["vehicles"])
+    if vehicles == nil
+      vehicles = unknown_vehicle
+    end
+    vehicles.each do |bike|
+      character = Character.find_by name: person["name"]
+      Transportation.create!(character: character, vehicle: bike)
+    end
   end
 end
+
+# starships = Vehicle.find_by url: person["starships"]
 
 # sand = Vehicle.find_by name: "Sand Crawler"
 #
@@ -204,6 +211,11 @@ chewie = Character.find_by name: "Chewbacca"
 chewie.alliance = rebel
 chewie.img_url = "https://lumiere-a.akamaihd.net/v1/images/chewie-db_2c0efea2.jpeg?region=54%2C154%2C1413%2C796"
 chewie.save
+
+darth_maul = Character.find_by name: "Darth Maul"
+darth_maul.alliance = imperial
+darth_maul.img_url = "https://lumiere-a.akamaihd.net/v1/images/Darth-Maul_632eb5af.jpeg?region=75%2C42%2C1525%2C858"
+darth_maul.save
 
 # character_inputs = Character.create!([
 #   {name: "Luke Skywalker",
