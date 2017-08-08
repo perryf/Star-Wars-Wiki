@@ -19,14 +19,13 @@
     <p>class: unknown</p>
 <% end %>
 
+<% if @character.vehicles[0] != nil %>
+  <p>vehicles: <%= @character.vehicles[0].name %></p>
+<% end %>
+
 <p>species: <a href="<%= species_path(@character.species) %>"> <%= @character.species.name %></a></p>
 <p>birth_year: <%= @character.birth_year %></p>
 <p>homeworld: <a href="<%= homeworld_path(@character.homeworld) %>"><%= @character.homeworld.name %></a></p>
-<% if @character.vehicles != "[]" %>
-  <p>vehicles: <%= @character.vehicles %></p>
-<% else %>
-  <p>vehicles: none</p>
-<% end %>
 
 <% if @character.height != nil && @character.height != 0 %>
   <p>height:

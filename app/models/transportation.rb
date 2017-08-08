@@ -1,4 +1,4 @@
 class Transportation < ApplicationRecord
-  belongs_to :characters
-  belongs_to :vehicles
+  belongs_to :character
+  belongs_to :vehicle
 end
