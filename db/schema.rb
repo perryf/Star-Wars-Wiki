@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170807194529) do
+ActiveRecord::Schema.define(version: 20170808003816) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,8 +75,36 @@ ActiveRecord::Schema.define(version: 20170807194529) do
     t.index ["homeworld_id"], name: "index_species_on_homeworld_id"
   end
 
+  create_table "transportations", force: :cascade do |t|
+    t.bigint "vehicle_id", null: false
+    t.bigint "character_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["character_id"], name: "index_transportations_on_character_id"
+    t.index ["vehicle_id"], name: "index_transportations_on_vehicle_id"
+  end
+
+  create_table "vehicles", force: :cascade do |t|
+    t.string "name"
+    t.string "model"
+    t.string "manufacturer"
+    t.integer "cost_in_credits"
+    t.integer "cargo_capacity"
+    t.string "vehicle_class"
+    t.string "max_atmosphering_speed"
+    t.integer "crew"
+    t.integer "passengers"
+    t.float "length"
+    t.string "films"
+    t.string "url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "characters", "alliances"
   add_foreign_key "characters", "homeworlds"
   add_foreign_key "characters", "species"
   add_foreign_key "species", "homeworlds"
+  add_foreign_key "transportations", "characters"
+  add_foreign_key "transportations", "vehicles"
 end
