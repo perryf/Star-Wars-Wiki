@@ -32,13 +32,6 @@ neutral = Alliance.create!({
   img_url: "https://vignette2.wikia.nocookie.net/starwars/images/9/9e/BibFortuna_Jabba_Ep6.jpg/revision/latest?cb=20080324151350"
 })
 
-r2 = flickr.photos.search(tags: "r2d2").first
-r2_farm = r2.farm
-r2_server = r2.server
-r2_id = r2.id
-r2_secret = r2.secret
-r2_img = "https://farm#{r2_farm}.staticflickr.com/#{r2_server}/#{r2_id}_#{r2_secret}.jpg"
-
 # Homeworlds Create
 61.times do |i|
   begin
@@ -46,7 +39,7 @@ r2_img = "https://farm#{r2_farm}.staticflickr.com/#{r2_server}/#{r2_id}_#{r2_sec
   rescue => e
     puts e
   else
-    if img_info = flickr.photos.search(tags: "#{planet["name"]}").first
+    if img_info = flickr.photos.search(tags: "#{planet["name"]}, starwars, planet", tag_mode: "all").first
       img_farm = img_info.farm
       img_server = img_info.server
       img_id = img_info.id
@@ -84,7 +77,7 @@ homeworld_unknown = Homeworld.create!({
     if planet == nil
       planet = Homeworld.first
     end
-    if img_info = flickr.photos.search(tags: "#{species["name"]}").first
+    if img_info = flickr.photos.search(tags: "#{species["name"]}, starwars", tag_mode: "all").first
       img_farm = img_info.farm
       img_server = img_info.server
       img_id = img_info.id
@@ -121,7 +114,7 @@ species_unknown = Species.create!({
   rescue => e
     puts e
   else
-    if img_info = flickr.photos.search(tags: "#{vehicle["name"]}").first
+    if img_info = flickr.photos.search(tags: "#{vehicle["name"]}, starwars", tag_mode: "all").first
       img_farm = img_info.farm
       img_server = img_info.server
       img_id = img_info.id
@@ -154,7 +147,7 @@ end
   rescue => e
     puts e
   else
-    if img_info = flickr.photos.search(tags: "#{vehicle["name"]}").first
+    if img_info = flickr.photos.search(tags: "#{vehicle["name"]}, starwars", tag_mode: "all").first
       img_farm = img_info.farm
       img_server = img_info.server
       img_id = img_info.id
@@ -201,7 +194,7 @@ characters = []
     if planet == nil
       planet = homeworld_unknown
     end
-    if img_info = flickr.photos.search(tags: "#{person["name"]}").first
+    if img_info = flickr.photos.search(tags: "#{person["name"]}, starwars", tag_mode: "all").first
       img_farm = img_info.farm
       img_server = img_info.server
       img_id = img_info.id
@@ -243,243 +236,228 @@ characters = []
   end
 end
 
-# starships = Vehicle.find_by url: person["starships"]
+xwing = Vehicle.find_by name: "X-wing"
+xwing.img_url="https://lumiere-a.akamaihd.net/v1/images/open-uri20150608-27674-1uu8j7u_83e38031.jpeg?region=0%2C0%2C1200%2C507"
+xwing.save
 
-# sand = Vehicle.find_by name: "Sand Crawler"
-#
-# darth_in_sand = Transportation.create!(character: darth, vehicle: sand)
+deathstar = Vehicle.find_by name: "Death Star"
+deathstar.img_url = "https://lumiere-a.akamaihd.net/v1/images/Death-Star-I-copy_36ad2500.jpeg?region=0%2C0%2C1600%2C900&width=1200"
+deathstar.save
 
-# characters.each do |person|
-#   vehicle = Vehicle.find_by url: person.vehicles[0]
-#   if (vehicle != nil && vehicle != "")
-#     Transportation.create!(character: person, vehicle: vehicle)
-#   else
-#     Transportation.create!(character: person, vehicle: unknown_vehicle)
-#   end
-# end
-#
-# xwing = Vehicle.find_by name: "X-wing"
-# xwing.img_url="https://lumiere-a.akamaihd.net/v1/images/open-uri20150608-27674-1uu8j7u_83e38031.jpeg?region=0%2C0%2C1200%2C507"
-# xwing.save
-#
-# deathstar = Vehicle.find_by name: "Death Star"
-# deathstar.img_url = "https://lumiere-a.akamaihd.net/v1/images/Death-Star-I-copy_36ad2500.jpeg?region=0%2C0%2C1600%2C900&width=1200"
-# deathstar.save
-#
-# falcon = Vehicle.find_by name: "Millennium Falcon"
-# falcon.img_url = "https://lumiere-a.akamaihd.net/v1/images/Millennium-Falcon_018ea796.jpeg?region=0%2C1%2C1536%2C864&width=1200"
-# falcon.save
-#
-# ywing = Vehicle.find_by name: "Y-wing"
-# ywing.img_url = "https://lumiere-a.akamaihd.net/v1/images/Y-Wing-Fighter_0e78c9ae.jpeg?region=0%2C0%2C1536%2C864&width=1200"
-# ywing.save
-#
-# tiefighter = Vehicle.find_by name: "TIE/LN starfighter"
-# tiefighter.img_url = "https://lumiere-a.akamaihd.net/v1/images/TIE-Fighter_25397c64.jpeg?region=0%2C1%2C2048%2C1152&width=1200"
-# tiefighter.save
-#
-# tiebomber = Vehicle.find_by name: "TIE bomber"
-# tiebomber.img_url = "https://lumiere-a.akamaihd.net/v1/images/ep5_key_504_6c3982bb.jpeg?region=0%2C67%2C1280%2C720&width=1200"
-# tiebomber.save
-#
-# atat = Vehicle.find_by name: "AT-AT"
-# atat.img_url = "https://lumiere-a.akamaihd.net/v1/images/AT-AT_89d0105f.jpeg?region=214%2C19%2C1270%2C716&width=1200"
-# atat.save
-#
-# atst = Vehicle.find_by name: "AT-ST"
-# atst.img_url = "https://lumiere-a.akamaihd.net/v1/images/e6d_ia_5724_a150e6d4.jpeg?region=124%2C0%2C1424%2C802&width=1200"
-# atst.save
-#
-# snowspeeder = Vehicle.find_by name: "Snowspeeder"
-# snowspeeder.img_url = "https://lumiere-a.akamaihd.net/v1/images/snowspeeder_ef2f9334.jpeg?region=0%2C211%2C2048%2C1154&width=1200"
-# snowspeeder.save
-#
-# stardestroyer = Vehicle.find_by name: "Star Destroyer"
-# stardestroyer.img_url = "https://lumiere-a.akamaihd.net/v1/images/Star-Destroyer_ab6b94bb.jpeg?region=0%2C0%2C1600%2C900&width=1200"
-# stardestroyer.save
-#
-# sandcrawler = Vehicle.find_by name: "Sand Crawler"
-# sandcrawler.img_url = "https://lumiere-a.akamaihd.net/v1/images/databank_sandcrawler_01_169_55acf6cb.jpeg?region=0%2C0%2C1560%2C878&width=1200"
-# sandcrawler.save
-#
-# speederbike = Vehicle.find_by name: "Imperial Speeder Bike"
-# speederbike.img_url = "https://lumiere-a.akamaihd.net/v1/images/databank_speederbike_01_169_c4204c29.jpeg?region=0%2C0%2C1560%2C878&width=1200"
-# speederbike.save
-#
-# slave1 = Vehicle.find_by name: "Slave 1"
-# slave1.img_url = "https://lumiere-a.akamaihd.net/v1/images/databank_slavei_01_169_8dc3102d.jpeg?region=0%2C0%2C1560%2C878&width=1200"
-# slave1.save
-#
-# calamari = Vehicle.find_by name: "Calamari Cruiser"
-# calamari.img_url = "https://lumiere-a.akamaihd.net/v1/images/e6d_ia_2581_47f64de7.jpeg?region=254%2C0%2C1426%2C802&width=1200"
-# calamari.save
-#
-# imperialshuttle = Vehicle.find_by name: "Imperial shuttle"
-# imperialshuttle.img_url = "https://lumiere-a.akamaihd.net/v1/images/veh_ia_1752_040381b2.jpeg?region=0%2C70%2C1280%2C720&width=1200"
-# imperialshuttle.save
-#
-# darth = Character.find_by name: "Darth Vader"
-# darth.alliance = imperial
-# darth.img_url = "https://lumiere-a.akamaihd.net/v1/images/Darth-Vader_6bda9114.jpeg?region=0%2C23%2C1400%2C785"
-# darth.bio = "Once a heroic Jedi Knight, Darth Vader was seduced by the dark side of the Force, became a Sith Lord, and led the Empire’s eradication of the Jedi Order. He remained in service of the Emperor -- the evil Darth Sidious -- for decades, enforcing his Master’s will and seeking to crush the fledgling Rebel Alliance. But there was still good in him…"
-# darth.catch_phrase = "I find your lack of faith disturbing."
-# darth.save
-#
-# emperor = Character.find_by name: "Palpatine"
-# emperor.alliance = imperial
-# emperor.img_url = "https://lumiere-a.akamaihd.net/v1/images/Emperor-Palpatine_7ac4a10e.jpeg?region=0%2C0%2C1600%2C900&width=1536"
-# emperor.bio = "Scheming, powerful, and evil to the core, Darth Sidious restored the Sith and destroyed the Jedi Order. Living a double life, Sidious was in fact Palpatine, a Naboo Senator and phantom menace. He slowly manipulated the political system of the Galactic Republic until he was named Supreme Chancellor -- and eventually Emperor -- ruling the galaxy through fear and tyranny."
-# emperor.catch_phrase = "Young fool... Only now, at the end, do you understand..."
-# emperor.save
-#
-# luke = Character.find_by name: "Luke Skywalker"
-# luke.alliance = rebel
-# luke.img_url = "https://lumiere-a.akamaihd.net/v1/images/open-uri20150608-27674-1ymefwb_483d5487.jpeg?region=0%2C0%2C1200%2C675"
-# luke.bio = "Luke Skywalker was a Tatooine farmboy who rose from humble beginnings to become one of the greatest Jedi the galaxy has ever known. Along with his friends Princess Leia and Han Solo, Luke battled the evil Empire, discovered the truth of his parentage, and ended the tyranny of the Sith. A generation later, the location of the famed Jedi master was one of the galaxy’s greatest mysteries."
-# luke.catch_phrase = "Uncle Owen!"
-# luke.save
-#
-# yoda = Character.find_by name: "Yoda"
-# yoda.alliance = rebel
-# yoda.img_url = "https://lumiere-a.akamaihd.net/v1/images/Yoda-Retina_2a7ecc26.jpeg?region=0%2C0%2C1536%2C864"
-# yoda.bio = "Yoda was a legendary Jedi Master and stronger than most in his connection with the Force. Small in size but wise and powerful, he trained Jedi for over 800 years, playing integral roles in the Clone Wars, the instruction of Luke Skywalker, and unlocking the path to immortality."
-# yoda.catch_phrase = "When nine hundred years old you reach, look as good you will not."
-# yoda.save
-#
-# leia = Character.find_by name: "Leia Organa"
-# leia.alliance = rebel
-# leia.img_url = "https://lumiere-a.akamaihd.net/v1/images/open-uri20150608-27674-1ly2wd_eb4b4064.jpeg?region=0%2C0%2C1200%2C674"
-# leia.save
-#
-# r2d2 = Character.find_by name: "R2-D2"
-# r2d2.alliance = rebel
-# r2d2.img_url = "https://lumiere-a.akamaihd.net/v1/images/r2-d2-featured_ba3d1867.jpeg?region=0%2C48%2C1536%2C768&width=1200"
-# r2d2.save
-#
-# c3p0 = Character.find_by name: "C-3PO"
-# c3p0.alliance = rebel
-# c3p0.img_url = "https://lumiere-a.akamaihd.net/v1/images/C-3PO-See-Threepio_68fe125c.jpeg?region=0%2C1%2C1408%2C792"
-# c3p0.save
-#
-# han_solo = Character.find_by name: "Han Solo"
-# han_solo.alliance = rebel
-# han_solo.img_url = "https://lumiere-a.akamaihd.net/v1/images/open-uri20150608-27674-nfid8t_2aab8189.jpeg?region=0%2C0%2C1200%2C674"
-# han_solo.save
-#
-# chewie = Character.find_by name: "Chewbacca"
-# chewie.alliance = rebel
-# chewie.img_url = "https://lumiere-a.akamaihd.net/v1/images/chewie-db_2c0efea2.jpeg?region=54%2C154%2C1413%2C796"
-# chewie.save
-#
-# darth_maul = Character.find_by name: "Darth Maul"
-# darth_maul.alliance = imperial
-# darth_maul.img_url = "https://lumiere-a.akamaihd.net/v1/images/Darth-Maul_632eb5af.jpeg?region=75%2C42%2C1525%2C858"
-# darth_maul.save
-#
-# ackbar = Character.find_by name: "Ackbar"
-# ackbar.alliance = rebel
-# ackbar.catch_phrase = "It's a trap!"
-# ackbar.img_url="https://lumiere-a.akamaihd.net/v1/images/admiralackbar1_2_845df144.jpeg?region=153%2C0%2C1614%2C807&width=1200"
-# ackbar.save
-#
-# owen = Character.find_by name: "Owen Lars"
-# owen.alliance = rebel
-# owen.img_url = "https://lumiere-a.akamaihd.net/v1/images/databank_owenlars_01_169_effce0f8.jpeg?region=0%2C0%2C1560%2C878&width=1536"
-# owen.bio = "Owen Lars continued his father Cliegg’s efforts to build his homestead into a productive farm, working alongside his wife, Beru. Helping with the dreary chores required to keep the farm profitable, Owen relied on his nephew Luke Skywalker. He could not rein in Luke's drive for adventure, though. Young Skywalker longed to leave Tatooine and join the Imperial Academy, to live life among the stars. Owen forbade it, reminding Luke that he was needed on the moisture farm. Skywalker would eventually leave the farm, but under tragic circumstances. Imperials searching for missing droids razed the Lars homestead and killed Owen and Beru."
-# owen.save
-#
-# anakin = Character.find_by name: "Anakin Skywalker"
-# anakin.alliance = rebel
-# anakin.img_url = "https://lumiere-a.akamaihd.net/v1/images/Anakin-Skywalker_d3330724.jpeg?region=0%2C0%2C1200%2C675"
-# anakin.bio = "Discovered as a slave on Tatooine by Qui-Gon Jinn and Obi-Wan Kenobi, Anakin Skywalker had the potential to become one of the most powerful Jedi ever, and was believed by some to be the prophesied Chosen One who would bring balance to the Force. A hero of the Clone Wars, Anakin was caring and compassionate, but also had a fear of loss that would prove to be his downfall."
-# anakin.save
-#
-# jabba = Character.find_by name: "Jabba Desilijic Tiure"
-# anakin.alliance = neutral
-# jabba.img_url = "https://lumiere-a.akamaihd.net/v1/images/Jabba-The-Hutt_b5a08a70.jpeg?region=0%2C0%2C1200%2C675"
-# jabba.bio = "Jabba the Hutt was one of the galaxy’s most powerful gangsters, with far-reaching influence in both politics and the criminal underworld. There were no second chances with Jabba, something Han Solo would find out -- though the slug-like alien would ultimately fall victim to his own hubris and vengeful ways."
-# jabba.save
-#
-# boba = Character.find_by name: "Boba Fett"
-# boba.alliance = neutral
-# boba.img_url = "https://lumiere-a.akamaihd.net/v1/images/Boba-Fett_61fdadfd.jpeg?region=0%2C0%2C1200%2C675"
-# boba.bio = "With his customized Mandalorian armor, deadly weaponry, and silent demeanor, Boba Fett was one of the most feared bounty hunters in the galaxy. A genetic clone of his “father,” bounty hunter Jango Fett, Boba learned combat and martial skills from a young age. Over the course of his career, which included contracts for the Empire and the criminal underworld, he became a legend."
-# boba.save
-#
-# rey = Character.find_by name: "Rey"
-# rey.alliance = rebel
-# rey.img_url = "https://lumiere-a.akamaihd.net/v1/images/rey_bddd0f27.jpeg?region=0%2C24%2C1560%2C876&width=1536"
-# rey.bio = "Rey is a Jakku scavenger, a survivor toughened by life on a harsh desert planet. When the fugitive droid BB-8 appeals to her for help, Rey finds herself drawn into a galaxy-spanning conflict. Despite dismissing herself as “no one,” she learns that her life is being shaped by the mysterious power of the Force."
-# rey.save
-#
-# sebulba = Character.find_by name: "Sebulba"
-# sebulba.alliance = neutral
-# sebulba.img_url = "https://lumiere-a.akamaihd.net/v1/images/sebulba_1f3fe180.jpeg?region=0%2C0%2C2453%2C1380&width=1536"
-# sebulba.save
-#
-# bib = Character.find_by name: "Bib Fortuna"
-# bib.alliance = neutral
-# bib.img_url = "https://lumiere-a.akamaihd.net/v1/images/databank_bibfortuna_01_169_01aef5b7.jpeg?region=0%2C0%2C1560%2C878&width=1536"
-# bib.bio = "Those attempting to do business with Jabba the Hutt first needed to maneuver past his pasty-faced majordomo, the Twi'lek Bib Fortuna. The darkly robed attendant often hovered near Jabba's ear, offering advice and feeding information. Fortuna followed the rules of protocol in the Hutt's court (such as they were), and spoke only in Huttese, though he understood other tongues. Fortuna's affiliation with Jabba stretched over decades."
-# bib.save
-#
-# mace = Character.find_by name: "Mace Windu"
-# mace.alliance = rebel
-# mace.img_url = "https://lumiere-a.akamaihd.net/v1/images/Mace-Windu_b35242e5.jpeg?region=0%2C0%2C1637%2C921&width=1536"
-# mace.bio = "A grim Jedi Master with an amethyst-bladed lightsaber, Mace Windu was the champion of the Jedi Order, with little tolerance for the failings of the Senate, the arguments of politicians, or the opinions of rebellious Jedi. As the Clone Wars intensified, Mace sensed the dark side of the Force at work, and knew the Jedi's enemies were plotting to destroy the Order and end its stewardship of the galaxy."
-# mace.save
-#
-# kylo = Character.new
-# kylo.name = "Kylo Ren"
-# kylo.alliance = imperial
-# kylo.img_url = "https://lumiere-a.akamaihd.net/v1/images/kylo-history-4-retina_d8314aec.jpeg?region=0%2C0%2C1200%2C501"
-# kylo.homeworld = Homeworld.find_by name: "Chandrila"
-# kylo.species = Species.find_by name: "Human"
-# kylo.bio = "A dark warrior strong with the Force, Kylo Ren commands First Order missions with a temper as fiery as his unconventional lightsaber. As a leader of the First Order and a student of Supreme Leader Snoke, he seeks to destroy the New Republic, the Resistance and the legacy of the Jedi."
-# kylo.save
-#
-# porkins = Character.find_by name: "Jek Tono Porkins"
-# porkins.alliance = rebel
-# porkins.img_url = "https://lumiere-a.akamaihd.net/v1/images/jek-porkins-main-image_0b8d2d13.jpeg?region=0%2C0%2C1280%2C721&width=1200"
-# porkins.save
-#
-# wedge = Character.find_by name: "Wedge Antilles"
-# wedge.alliance = rebel
-# wedge.img_url = "https://lumiere-a.akamaihd.net/v1/images/databank_wedgeantilles_01_169_b8185dce.jpeg?region=0%2C0%2C1560%2C878&width=1200"
-# wedge.bio = "A talented young rebel pilot from Corellia, Wedge Antilles survived the attack on the first Death Star to become a respected veteran of Rogue Squadron. He piloted a snowspeeder in the defense of Echo Base on Hoth, and led Red Squadron in the rebel attack on the second Death Star above Endor."
-# wedge.save
-#
-# lando = Character.find_by name: "Lando Calrissian"
-# lando.alliance = rebel
-# lando.img_url = "https://lumiere-a.akamaihd.net/v1/images/Lando-Calrissian_a679fe1e.jpeg?region=1%2C0%2C1598%2C899&width=1200"
-# lando.bio = "Once a smooth-talking smuggler, Lando Calrissian changed from a get-rich-quick schemer to a selfless leader in the fight against the Empire. From adventures with the Ghost crew of rebels to the attack on Death Star II, his quick wit and daring proved to be invaluable."
-# lando.save
-#
-# jarjar = Character.find_by name: "Jar Jar Binks"
-# jarjar.alliance = rebel
-# jarjar.img_url = "https://lumiere-a.akamaihd.net/v1/images/databank_jarjarbinks_01_169_c70767ab.jpeg?region=0%2C0%2C1560%2C878&width=1200"
-# jarjar.bio = "A clumsy, well-meaning Gungan outcast on Naboo, Jar Jar Binks struggled to prove his worth throughout his life. Putting his awkward past behind him, Jar Jar left the swamps of Naboo to enter the even murkier waters of Coruscant politics, becoming a representative for his people in the galactic capital. There, his best intentions and eagerness to serve were exploited by scheming Senators and others in positions of power."
-# jarjar.save
-#
-# padme = Character.find_by name: "Padmé Amidala"
-# padme.alliance = rebel
-# padme.img_url = "https://lumiere-a.akamaihd.net/v1/images/Padme-Amidala_05d50c8a.jpeg?region=0%2C0%2C1536%2C864&width=1200"
-# padme.bio = "Padmé Amidala was a courageous, hopeful leader, serving as Queen and then Senator of Naboo -- and was also handy with a blaster. Despite her ideals and all she did for the cause of peace, her secret, forbidden marriage to Jedi Anakin Skywalker would prove to have dire consequences for the galaxy."
-# padme.save
-#
-# obi = Character.find_by name: "Obi-Wan Kenobi"
-# obi.alliance = rebel
-# obi.img_url = "https://lumiere-a.akamaihd.net/v1/images/Obi-Wan-Kenobi_6d775533.jpeg?region=0%2C0%2C1536%2C864&width=1200"
-# obi.bio = "A legendary Jedi Master, Obi-Wan Kenobi was a noble man and gifted in the ways of the Force. He trained Anakin Skywalker, served as a general in the Republic Army during the Clone Wars, and guided Luke Skywalker as a mentor."
-# obi.catch_phrase = "May the force be with you"
-# obi.save
-#
-# stormtrooper = Character.new
-# stormtrooper.name = "Storm Trooper"
-# stormtrooper.alliance = imperial
-# stormtrooper.homeworld = homeworld_unknown
-# stormtrooper.species = Species.find_by name: "Human"
-# stormtrooper.bio = "Stormtroopers are elite shock troops fanatically loyal to the Empire and impossible to sway from the Imperial cause. They wear imposing white armor, which offers a wide range of survival equipment and temperature controls to allow the soldiers to survive in almost any environment. Stormtroopers wield blaster rifles and pistols with great skill, and attack in hordes to overwhelm their enemies. Along with standard stormtroopers, the Empire has organized several specialized units, including snowtroopers and scout troopers."
-# stormtrooper.classification = "Military"
-# stormtrooper.img_url = "https://lumiere-a.akamaihd.net/v1/images/Stormtroopers_f36ff76a.jpeg?region=1%2C0%2C1534%2C863&width=1200"
-# stormtrooper.save
+falcon = Vehicle.find_by name: "Millennium Falcon"
+falcon.img_url = "https://lumiere-a.akamaihd.net/v1/images/Millennium-Falcon_018ea796.jpeg?region=0%2C1%2C1536%2C864&width=1200"
+falcon.save
+
+ywing = Vehicle.find_by name: "Y-wing"
+ywing.img_url = "https://lumiere-a.akamaihd.net/v1/images/Y-Wing-Fighter_0e78c9ae.jpeg?region=0%2C0%2C1536%2C864&width=1200"
+ywing.save
+
+tiefighter = Vehicle.find_by name: "TIE/LN starfighter"
+tiefighter.img_url = "https://lumiere-a.akamaihd.net/v1/images/TIE-Fighter_25397c64.jpeg?region=0%2C1%2C2048%2C1152&width=1200"
+tiefighter.save
+
+tiebomber = Vehicle.find_by name: "TIE bomber"
+tiebomber.img_url = "https://lumiere-a.akamaihd.net/v1/images/ep5_key_504_6c3982bb.jpeg?region=0%2C67%2C1280%2C720&width=1200"
+tiebomber.save
+
+atat = Vehicle.find_by name: "AT-AT"
+atat.img_url = "https://lumiere-a.akamaihd.net/v1/images/AT-AT_89d0105f.jpeg?region=214%2C19%2C1270%2C716&width=1200"
+atat.save
+
+atst = Vehicle.find_by name: "AT-ST"
+atst.img_url = "https://lumiere-a.akamaihd.net/v1/images/e6d_ia_5724_a150e6d4.jpeg?region=124%2C0%2C1424%2C802&width=1200"
+atst.save
+
+snowspeeder = Vehicle.find_by name: "Snowspeeder"
+snowspeeder.img_url = "https://lumiere-a.akamaihd.net/v1/images/snowspeeder_ef2f9334.jpeg?region=0%2C211%2C2048%2C1154&width=1200"
+snowspeeder.save
+
+stardestroyer = Vehicle.find_by name: "Star Destroyer"
+stardestroyer.img_url = "https://lumiere-a.akamaihd.net/v1/images/Star-Destroyer_ab6b94bb.jpeg?region=0%2C0%2C1600%2C900&width=1200"
+stardestroyer.save
+
+sandcrawler = Vehicle.find_by name: "Sand Crawler"
+sandcrawler.img_url = "https://lumiere-a.akamaihd.net/v1/images/databank_sandcrawler_01_169_55acf6cb.jpeg?region=0%2C0%2C1560%2C878&width=1200"
+sandcrawler.save
+
+speederbike = Vehicle.find_by name: "Imperial Speeder Bike"
+speederbike.img_url = "https://lumiere-a.akamaihd.net/v1/images/databank_speederbike_01_169_c4204c29.jpeg?region=0%2C0%2C1560%2C878&width=1200"
+speederbike.save
+
+slave1 = Vehicle.find_by name: "Slave 1"
+slave1.img_url = "https://lumiere-a.akamaihd.net/v1/images/databank_slavei_01_169_8dc3102d.jpeg?region=0%2C0%2C1560%2C878&width=1200"
+slave1.save
+
+calamari = Vehicle.find_by name: "Calamari Cruiser"
+calamari.img_url = "https://lumiere-a.akamaihd.net/v1/images/e6d_ia_2581_47f64de7.jpeg?region=254%2C0%2C1426%2C802&width=1200"
+calamari.save
+
+imperialshuttle = Vehicle.find_by name: "Imperial shuttle"
+imperialshuttle.img_url = "https://lumiere-a.akamaihd.net/v1/images/veh_ia_1752_040381b2.jpeg?region=0%2C70%2C1280%2C720&width=1200"
+imperialshuttle.save
+
+darth = Character.find_by name: "Darth Vader"
+darth.alliance = imperial
+darth.img_url = "https://lumiere-a.akamaihd.net/v1/images/Darth-Vader_6bda9114.jpeg?region=0%2C23%2C1400%2C785"
+darth.bio = "Once a heroic Jedi Knight, Darth Vader was seduced by the dark side of the Force, became a Sith Lord, and led the Empire’s eradication of the Jedi Order. He remained in service of the Emperor -- the evil Darth Sidious -- for decades, enforcing his Master’s will and seeking to crush the fledgling Rebel Alliance. But there was still good in him…"
+darth.catch_phrase = "I find your lack of faith disturbing."
+darth.save
+
+emperor = Character.find_by name: "Palpatine"
+emperor.alliance = imperial
+emperor.img_url = "https://lumiere-a.akamaihd.net/v1/images/Emperor-Palpatine_7ac4a10e.jpeg?region=0%2C0%2C1600%2C900&width=1536"
+emperor.bio = "Scheming, powerful, and evil to the core, Darth Sidious restored the Sith and destroyed the Jedi Order. Living a double life, Sidious was in fact Palpatine, a Naboo Senator and phantom menace. He slowly manipulated the political system of the Galactic Republic until he was named Supreme Chancellor -- and eventually Emperor -- ruling the galaxy through fear and tyranny."
+emperor.catch_phrase = "Young fool... Only now, at the end, do you understand..."
+emperor.save
+
+luke = Character.find_by name: "Luke Skywalker"
+luke.alliance = rebel
+luke.img_url = "https://lumiere-a.akamaihd.net/v1/images/open-uri20150608-27674-1ymefwb_483d5487.jpeg?region=0%2C0%2C1200%2C675"
+luke.bio = "Luke Skywalker was a Tatooine farmboy who rose from humble beginnings to become one of the greatest Jedi the galaxy has ever known. Along with his friends Princess Leia and Han Solo, Luke battled the evil Empire, discovered the truth of his parentage, and ended the tyranny of the Sith. A generation later, the location of the famed Jedi master was one of the galaxy’s greatest mysteries."
+luke.catch_phrase = "Uncle Owen!"
+luke.save
+
+yoda = Character.find_by name: "Yoda"
+yoda.alliance = rebel
+yoda.img_url = "https://lumiere-a.akamaihd.net/v1/images/Yoda-Retina_2a7ecc26.jpeg?region=0%2C0%2C1536%2C864"
+yoda.bio = "Yoda was a legendary Jedi Master and stronger than most in his connection with the Force. Small in size but wise and powerful, he trained Jedi for over 800 years, playing integral roles in the Clone Wars, the instruction of Luke Skywalker, and unlocking the path to immortality."
+yoda.catch_phrase = "When nine hundred years old you reach, look as good you will not."
+yoda.save
+
+leia = Character.find_by name: "Leia Organa"
+leia.alliance = rebel
+leia.img_url = "https://lumiere-a.akamaihd.net/v1/images/open-uri20150608-27674-1ly2wd_eb4b4064.jpeg?region=0%2C0%2C1200%2C674"
+leia.save
+
+r2d2 = Character.find_by name: "R2-D2"
+r2d2.alliance = rebel
+r2d2.img_url = "https://lumiere-a.akamaihd.net/v1/images/r2-d2-featured_ba3d1867.jpeg?region=0%2C48%2C1536%2C768&width=1200"
+r2d2.save
+
+c3p0 = Character.find_by name: "C-3PO"
+c3p0.alliance = rebel
+c3p0.img_url = "https://lumiere-a.akamaihd.net/v1/images/C-3PO-See-Threepio_68fe125c.jpeg?region=0%2C1%2C1408%2C792"
+c3p0.save
+
+han_solo = Character.find_by name: "Han Solo"
+han_solo.alliance = rebel
+han_solo.img_url = "https://lumiere-a.akamaihd.net/v1/images/open-uri20150608-27674-nfid8t_2aab8189.jpeg?region=0%2C0%2C1200%2C674"
+han_solo.save
+
+chewie = Character.find_by name: "Chewbacca"
+chewie.alliance = rebel
+chewie.img_url = "https://lumiere-a.akamaihd.net/v1/images/chewie-db_2c0efea2.jpeg?region=54%2C154%2C1413%2C796"
+chewie.save
+
+darth_maul = Character.find_by name: "Darth Maul"
+darth_maul.alliance = imperial
+darth_maul.img_url = "https://lumiere-a.akamaihd.net/v1/images/Darth-Maul_632eb5af.jpeg?region=75%2C42%2C1525%2C858"
+darth_maul.save
+
+ackbar = Character.find_by name: "Ackbar"
+ackbar.alliance = rebel
+ackbar.catch_phrase = "It's a trap!"
+ackbar.img_url="https://lumiere-a.akamaihd.net/v1/images/admiralackbar1_2_845df144.jpeg?region=153%2C0%2C1614%2C807&width=1200"
+ackbar.save
+
+owen = Character.find_by name: "Owen Lars"
+owen.alliance = rebel
+owen.img_url = "https://lumiere-a.akamaihd.net/v1/images/databank_owenlars_01_169_effce0f8.jpeg?region=0%2C0%2C1560%2C878&width=1536"
+owen.bio = "Owen Lars continued his father Cliegg’s efforts to build his homestead into a productive farm, working alongside his wife, Beru. Helping with the dreary chores required to keep the farm profitable, Owen relied on his nephew Luke Skywalker. He could not rein in Luke's drive for adventure, though. Young Skywalker longed to leave Tatooine and join the Imperial Academy, to live life among the stars. Owen forbade it, reminding Luke that he was needed on the moisture farm. Skywalker would eventually leave the farm, but under tragic circumstances. Imperials searching for missing droids razed the Lars homestead and killed Owen and Beru."
+owen.save
+
+anakin = Character.find_by name: "Anakin Skywalker"
+anakin.alliance = rebel
+anakin.img_url = "https://lumiere-a.akamaihd.net/v1/images/Anakin-Skywalker_d3330724.jpeg?region=0%2C0%2C1200%2C675"
+anakin.bio = "Discovered as a slave on Tatooine by Qui-Gon Jinn and Obi-Wan Kenobi, Anakin Skywalker had the potential to become one of the most powerful Jedi ever, and was believed by some to be the prophesied Chosen One who would bring balance to the Force. A hero of the Clone Wars, Anakin was caring and compassionate, but also had a fear of loss that would prove to be his downfall."
+anakin.save
+
+jabba = Character.find_by name: "Jabba Desilijic Tiure"
+anakin.alliance = neutral
+jabba.img_url = "https://lumiere-a.akamaihd.net/v1/images/Jabba-The-Hutt_b5a08a70.jpeg?region=0%2C0%2C1200%2C675"
+jabba.bio = "Jabba the Hutt was one of the galaxy’s most powerful gangsters, with far-reaching influence in both politics and the criminal underworld. There were no second chances with Jabba, something Han Solo would find out -- though the slug-like alien would ultimately fall victim to his own hubris and vengeful ways."
+jabba.save
+
+boba = Character.find_by name: "Boba Fett"
+boba.alliance = neutral
+boba.img_url = "https://lumiere-a.akamaihd.net/v1/images/Boba-Fett_61fdadfd.jpeg?region=0%2C0%2C1200%2C675"
+boba.bio = "With his customized Mandalorian armor, deadly weaponry, and silent demeanor, Boba Fett was one of the most feared bounty hunters in the galaxy. A genetic clone of his “father,” bounty hunter Jango Fett, Boba learned combat and martial skills from a young age. Over the course of his career, which included contracts for the Empire and the criminal underworld, he became a legend."
+boba.save
+
+rey = Character.find_by name: "Rey"
+rey.alliance = rebel
+rey.img_url = "https://lumiere-a.akamaihd.net/v1/images/rey_bddd0f27.jpeg?region=0%2C24%2C1560%2C876&width=1536"
+rey.bio = "Rey is a Jakku scavenger, a survivor toughened by life on a harsh desert planet. When the fugitive droid BB-8 appeals to her for help, Rey finds herself drawn into a galaxy-spanning conflict. Despite dismissing herself as “no one,” she learns that her life is being shaped by the mysterious power of the Force."
+rey.save
+
+sebulba = Character.find_by name: "Sebulba"
+sebulba.alliance = neutral
+sebulba.img_url = "https://lumiere-a.akamaihd.net/v1/images/sebulba_1f3fe180.jpeg?region=0%2C0%2C2453%2C1380&width=1536"
+sebulba.save
+
+bib = Character.find_by name: "Bib Fortuna"
+bib.alliance = neutral
+bib.img_url = "https://lumiere-a.akamaihd.net/v1/images/databank_bibfortuna_01_169_01aef5b7.jpeg?region=0%2C0%2C1560%2C878&width=1536"
+bib.bio = "Those attempting to do business with Jabba the Hutt first needed to maneuver past his pasty-faced majordomo, the Twi'lek Bib Fortuna. The darkly robed attendant often hovered near Jabba's ear, offering advice and feeding information. Fortuna followed the rules of protocol in the Hutt's court (such as they were), and spoke only in Huttese, though he understood other tongues. Fortuna's affiliation with Jabba stretched over decades."
+bib.save
+
+mace = Character.find_by name: "Mace Windu"
+mace.alliance = rebel
+mace.img_url = "https://lumiere-a.akamaihd.net/v1/images/Mace-Windu_b35242e5.jpeg?region=0%2C0%2C1637%2C921&width=1536"
+mace.bio = "A grim Jedi Master with an amethyst-bladed lightsaber, Mace Windu was the champion of the Jedi Order, with little tolerance for the failings of the Senate, the arguments of politicians, or the opinions of rebellious Jedi. As the Clone Wars intensified, Mace sensed the dark side of the Force at work, and knew the Jedi's enemies were plotting to destroy the Order and end its stewardship of the galaxy."
+mace.save
+
+kylo = Character.new
+kylo.name = "Kylo Ren"
+kylo.alliance = imperial
+kylo.img_url = "https://lumiere-a.akamaihd.net/v1/images/kylo-history-4-retina_d8314aec.jpeg?region=0%2C0%2C1200%2C501"
+kylo.homeworld = Homeworld.find_by name: "Chandrila"
+kylo.species = Species.find_by name: "Human"
+kylo.bio = "A dark warrior strong with the Force, Kylo Ren commands First Order missions with a temper as fiery as his unconventional lightsaber. As a leader of the First Order and a student of Supreme Leader Snoke, he seeks to destroy the New Republic, the Resistance and the legacy of the Jedi."
+kylo.save
+
+porkins = Character.find_by name: "Jek Tono Porkins"
+porkins.alliance = rebel
+porkins.img_url = "https://lumiere-a.akamaihd.net/v1/images/jek-porkins-main-image_0b8d2d13.jpeg?region=0%2C0%2C1280%2C721&width=1200"
+porkins.save
+
+wedge = Character.find_by name: "Wedge Antilles"
+wedge.alliance = rebel
+wedge.img_url = "https://lumiere-a.akamaihd.net/v1/images/databank_wedgeantilles_01_169_b8185dce.jpeg?region=0%2C0%2C1560%2C878&width=1200"
+wedge.bio = "A talented young rebel pilot from Corellia, Wedge Antilles survived the attack on the first Death Star to become a respected veteran of Rogue Squadron. He piloted a snowspeeder in the defense of Echo Base on Hoth, and led Red Squadron in the rebel attack on the second Death Star above Endor."
+wedge.save
+
+lando = Character.find_by name: "Lando Calrissian"
+lando.alliance = rebel
+lando.img_url = "https://lumiere-a.akamaihd.net/v1/images/Lando-Calrissian_a679fe1e.jpeg?region=1%2C0%2C1598%2C899&width=1200"
+lando.bio = "Once a smooth-talking smuggler, Lando Calrissian changed from a get-rich-quick schemer to a selfless leader in the fight against the Empire. From adventures with the Ghost crew of rebels to the attack on Death Star II, his quick wit and daring proved to be invaluable."
+lando.save
+
+jarjar = Character.find_by name: "Jar Jar Binks"
+jarjar.alliance = rebel
+jarjar.img_url = "https://lumiere-a.akamaihd.net/v1/images/databank_jarjarbinks_01_169_c70767ab.jpeg?region=0%2C0%2C1560%2C878&width=1200"
+jarjar.bio = "A clumsy, well-meaning Gungan outcast on Naboo, Jar Jar Binks struggled to prove his worth throughout his life. Putting his awkward past behind him, Jar Jar left the swamps of Naboo to enter the even murkier waters of Coruscant politics, becoming a representative for his people in the galactic capital. There, his best intentions and eagerness to serve were exploited by scheming Senators and others in positions of power."
+jarjar.save
+
+padme = Character.find_by name: "Padmé Amidala"
+padme.alliance = rebel
+padme.img_url = "https://lumiere-a.akamaihd.net/v1/images/Padme-Amidala_05d50c8a.jpeg?region=0%2C0%2C1536%2C864&width=1200"
+padme.bio = "Padmé Amidala was a courageous, hopeful leader, serving as Queen and then Senator of Naboo -- and was also handy with a blaster. Despite her ideals and all she did for the cause of peace, her secret, forbidden marriage to Jedi Anakin Skywalker would prove to have dire consequences for the galaxy."
+padme.save
+
+obi = Character.find_by name: "Obi-Wan Kenobi"
+obi.alliance = rebel
+obi.img_url = "https://lumiere-a.akamaihd.net/v1/images/Obi-Wan-Kenobi_6d775533.jpeg?region=0%2C0%2C1536%2C864&width=1200"
+obi.bio = "A legendary Jedi Master, Obi-Wan Kenobi was a noble man and gifted in the ways of the Force. He trained Anakin Skywalker, served as a general in the Republic Army during the Clone Wars, and guided Luke Skywalker as a mentor."
+obi.catch_phrase = "May the force be with you"
+obi.save
+
+stormtrooper = Character.new
+stormtrooper.name = "Storm Trooper"
+stormtrooper.alliance = imperial
+stormtrooper.homeworld = homeworld_unknown
+stormtrooper.species = Species.find_by name: "Human"
+stormtrooper.bio = "Stormtroopers are elite shock troops fanatically loyal to the Empire and impossible to sway from the Imperial cause. They wear imposing white armor, which offers a wide range of survival equipment and temperature controls to allow the soldiers to survive in almost any environment. Stormtroopers wield blaster rifles and pistols with great skill, and attack in hordes to overwhelm their enemies. Along with standard stormtroopers, the Empire has organized several specialized units, including snowtroopers and scout troopers."
+stormtrooper.classification = "Military"
+stormtrooper.img_url = "https://lumiere-a.akamaihd.net/v1/images/Stormtroopers_f36ff76a.jpeg?region=1%2C0%2C1534%2C863&width=1200"
+stormtrooper.save
