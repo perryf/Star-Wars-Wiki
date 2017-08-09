@@ -24,6 +24,7 @@ class CharactersController < ApplicationController
   def update
     @character = Character.find(params[:id])
     @character.update(character_params)
+    @character.transportations.destroy_all
     params[:character][:vehicles].each do |vehicle|
       @character.transportations.create(vehicle_id: vehicle)
     end
@@ -32,6 +33,7 @@ class CharactersController < ApplicationController
 
   def destroy
     @character = Character.find(params[:id])
+    @character.transportations.destroy_all
     @character.destroy
     redirect_to characters_path, notice: "Character was successfully destroyed"
   end
