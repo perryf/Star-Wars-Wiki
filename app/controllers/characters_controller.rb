@@ -15,6 +15,7 @@ class CharactersController < ApplicationController
 
   def show
     @character = Character.find(params[:id])
+    @films = JSON.parse(@character.films)
   end
 
   def edit

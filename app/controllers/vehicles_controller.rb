@@ -11,6 +11,7 @@ class VehiclesController < ApplicationController
   end
   def show
     @vehicle = Vehicle.find(params[:id])
+    @films = JSON.parse(@vehicle.films)
   end
   def edit
     @vehicle = Vehicle.find(params[:id])

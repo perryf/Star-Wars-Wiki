@@ -2,7 +2,7 @@ class HomeworldsController < ApplicationController
   def index
     @planets = Homeworld.all
   end
-  
+
   def new
     @planet = Homeworld.new
   end
@@ -14,6 +14,7 @@ class HomeworldsController < ApplicationController
 
   def show
     @planet = Homeworld.find(params[:id])
+    @films = JSON.parse(@planet.films)
   end
 
   def edit

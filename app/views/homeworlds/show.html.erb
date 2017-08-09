@@ -12,7 +12,6 @@
 <p>Terrain: <%= @planet.terrain %></p>
 <p>Population: <%= @planet.population %></p>
 <p>Gravity: <%= @planet.gravity %></p>
-<p>Films: <%= @planet.films %></p>
 <p>Inhabiting Species</p>
 <% @planet.species.each do |critter| %>
   <ul>
@@ -25,3 +24,10 @@
     <li><a href="<%= character_path(character) %>"><%= character.name %></a></li>
   </ul>
 <% end %>
+
+<p>films:</p>
+<ul>
+  <% @films.each do |film| %>
+    <li>Episode: <%= film[film.length-2] %></li>
+  <% end %>
+</ul>

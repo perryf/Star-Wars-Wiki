@@ -11,12 +11,18 @@
 <p>Max Speed: <%= @vehicle.max_atmosphering_speed %></p>
 <p>Crew: <%= @vehicle.crew %></p>
 <p>Passengers: <%= @vehicle.passengers %></p>
-<p>Films: <%= @vehicle.films %></p>
 <p>Notable Drivers</p>
 <% @vehicle.characters.each do |character| %>
   <ul>
     <li><a href="<%= character_path(character) %>"><%= character.name %></a></li>
   </ul>
 <% end %>
+
+<p>films:</p>
+<ul>
+  <% @films.each do |film| %>
+    <li>Episode: <%= film[film.length-2] %></li>
+  <% end %>
+</ul>
 
 <%= link_to "Edit this Vehicle", edit_vehicle_path %>

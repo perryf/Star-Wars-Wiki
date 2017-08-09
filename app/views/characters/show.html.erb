@@ -42,5 +42,11 @@
   <% end %>
 <p>mass: <%= @character.mass %></p>
 
-<p>films: <%= @character.films %></p>
+  <p>films:</p>
+  <ul>
+    <% @films.each do |film| %>
+      <li>Episode: <%= film[film.length-2] %></li>
+    <% end %>
+  </ul>
+
 <%= link_to "Edit this Character", edit_character_path %>

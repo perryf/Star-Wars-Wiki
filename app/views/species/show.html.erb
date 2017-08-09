@@ -20,7 +20,6 @@
 
 <p>average_lifespan: <%= @species.average_lifespan %> earth years</p>
 <p>skin_colors: <%= @species.skin_colors %></p>
-<p>Films: <%= @species.films %></p>
 <p>Homeworld: <a href="<%= homeworld_path(@species.homeworld) %>"><%= @species.homeworld.name %></a></p>
 <p>Notable <%= @species.name %> Creatures</p>
 <% @species.characters.each do |character| %>
@@ -28,3 +27,10 @@
     <li><a href="<%= character_path(character) %>"><%= character.name %></a></li>
   </ul>
 <% end %>
+
+<p>films:</p>
+<ul>
+  <% @films.each do |film| %>
+    <li>Episode: <%= film[film.length-2] %></li>
+  <% end %>
+</ul>
