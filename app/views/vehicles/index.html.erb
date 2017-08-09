@@ -1,4 +1,14 @@
 <%= link_to "Create a new Vehicle", new_vehicle_path %>
-<% @vehicles.each do |vehicle| %>
-  <h3><a href="<%= vehicle_path(vehicle) %>"><%= vehicle.name %></a></h3>
-<% end %>
+
+<% @vehicles = @vehicles.sort_by { |k| k[:name] }%>
+
+<div class="index-all">
+  <% @vehicles.each do |vehicle| %>
+    <div class="index-box">
+      <a href="<%= vehicle_path(vehicle) %>">
+        <h3><%= vehicle.name %></h3>
+        <img src="<%= vehicle.img_url %>" alt="<%= vehicle.name %>" class="index-img">
+      </a>
+    </div>
+  <% end %>
+</div>

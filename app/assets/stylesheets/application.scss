@@ -26,6 +26,7 @@
 body {
   color: white;
   background: url("277120-large-star-wars-backgrounds-x-retina.jpg") no-repeat center center fixed;
+  font-family: 'Josefin Sans', sans-serif;
 }
 
 a {
@@ -51,10 +52,12 @@ header {
 .sub-headings {
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
 }
 
 .sub-heading {
-  font-size: 1.5em;
+  margin: 0 20px;
+  font-size: 2em;
 }
 
 .notice {
@@ -62,4 +65,25 @@ header {
 }
 .alert {
   color: red;
+}
+
+.index-all {
+  justify-content: space-around;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.index-box {
+  text-align: center;
+  width: 140px;
+  max-height: 220px;
+  background: rgba(250, 250, 250, 0.1);
+  border: 1px rgba(250, 250, 0, 0.5) solid;
+  margin: 10px 20px;
+  border-radius: 10px;
+}
+
+.index-img {
+  width: 120px;
+  max-height: 160px;
 }

@@ -1,5 +1,14 @@
 <%= link_to "Create a new species", new_species_path %>
 
-<% @species.each do |critter| %>
-  <h3><a href="<%= species_path(critter) %>"><%= critter.name %></a></h3>
-<% end %>
+<% @species = @species.sort_by { |k| k[:name] }%>
+
+<div class="index-all">
+  <% @species.each do |critter| %>
+    <div class="index-box">
+      <a href="<%= species_path(critter) %>">
+        <h3><%= critter.name %></h3>
+        <img src="<%= critter.img_url %>" alt="<%= critter.name %>" class="index-img">
+      </a>
+    </div>
+  <% end %>
+</div>

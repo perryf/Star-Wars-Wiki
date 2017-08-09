@@ -1,4 +1,11 @@
 <%= link_to "Create a new Alliance", new_alliance_path %>
-<% @alliances.each do |alliance| %>
-  <h3><a href="<%= alliance_path(alliance) %>"><%= alliance.name %></a></h3>
-<% end %>
+
+<div class="index-all">
+  <% @alliances.each do |alliance| %>
+    <div class="index-box">
+      <a href="<%= alliance_path(alliance) %>"><h3><%= alliance.name %></h3>
+        <img src="<%= alliance.img_url %>" alt="<%= alliance.name %>" class="index-img">
+      </a>
+    </div>
+  <% end %>
+</div>
