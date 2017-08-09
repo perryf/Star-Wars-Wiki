@@ -17,16 +17,6 @@ Vehicle.destroy_all
 FlickRaw.api_key="f438e2d2703a59971491b8810477cd4d"
 FlickRaw.shared_secret="b90683848542d236"
 
-r2 = flickr.photos.search(tags: "r2d2").first
-r2_farm = r2.farm
-r2_server = r2.server
-r2_id = r2.id
-r2_secret = r2.secret
-# r2_img = "https://farm#{r2_farm}.com/photos/#{r2_owner}/#{r2_id}"
-r2_img = "https://farm#{r2_farm}.staticflickr.com/#{r2_server}/#{r2_id}_#{r2_secret}.jpg"
-
-
-
 rebel = Alliance.create!({
   name: "Rebels",
   img_url: "http://a.dilcdn.com/bl/wp-content/uploads/sites/6/2015/11/rebel-symbol.jpg"
@@ -39,177 +29,234 @@ imperial = Alliance.create!({
 
 neutral = Alliance.create!({
   name: "Neutral",
-  img_url: r2_img
+  img_url: "https://vignette2.wikia.nocookie.net/starwars/images/9/9e/BibFortuna_Jabba_Ep6.jpg/revision/latest?cb=20080324151350"
 })
 
+r2 = flickr.photos.search(tags: "r2d2").first
+r2_farm = r2.farm
+r2_server = r2.server
+r2_id = r2.id
+r2_secret = r2.secret
+r2_img = "https://farm#{r2_farm}.staticflickr.com/#{r2_server}/#{r2_id}_#{r2_secret}.jpg"
+
 # Homeworlds Create
-# 61.times do |i|
-#   begin
-#     planet = JSON.parse(Swapi.get_planet(i + 1))
-#   rescue => e
-#     puts e
+61.times do |i|
+  begin
+    planet = JSON.parse(Swapi.get_planet(i + 1))
+  rescue => e
+    puts e
+  else
+    if img_info = flickr.photos.search(tags: "#{planet["name"]}").first
+      img_farm = img_info.farm
+      img_server = img_info.server
+      img_id = img_info.id
+      img_secret = img_info.secret
+      img_url = "https://farm#{img_farm}.staticflickr.com/#{img_server}/#{img_id}_#{img_secret}.jpg"
+    else
+      img_url = ""
+    end
+    Homeworld.create!({
+      name: planet["name"],
+      img_url: img_url,
+      climate: planet["climate"],
+      terrain: planet["terrain"],
+      population: planet["population"],
+      gravity: planet["gravity"],
+      films: planet["films"],
+      url: planet["url"]
+    })
+  end
+end
+
+homeworld_unknown = Homeworld.create!({
+  name: "Unknown",
+  url: ""
+  })
+
+#Species Create
+37.times do |i|
+  begin
+    species = JSON.parse(Swapi.get_species(i + 1))
+  rescue => e
+    puts e
+  else
+    planet = Homeworld.find_by url: species["homeworld"]
+    if planet == nil
+      planet = Homeworld.first
+    end
+    if img_info = flickr.photos.search(tags: "#{species["name"]}").first
+      img_farm = img_info.farm
+      img_server = img_info.server
+      img_id = img_info.id
+      img_secret = img_info.secret
+      img_url = "https://farm#{img_farm}.staticflickr.com/#{img_server}/#{img_id}_#{img_secret}.jpg"
+    else
+      img_url = ""
+    end
+    Species.create!({
+      name: species["name"],
+      img_url: img_url,
+      designation: species["designation"],
+      classification: species["classification"],
+      average_height: species["average_height"],
+      average_lifespan: species["average_lifespan"],
+      skin_colors: species["skin_colors"],
+      language: species["languages"],
+      films: species["films"],
+      url: species["url"],
+      homeworld: planet
+    })
+  end
+end
+
+species_unknown = Species.create!({
+  name: "unknown",
+  homeworld: homeworld_unknown
+})
+
+#Vehicles Create
+100.times do |i|
+  begin
+    vehicle = JSON.parse(Swapi.get_vehicle(i + 1))
+  rescue => e
+    puts e
+  else
+    if img_info = flickr.photos.search(tags: "#{vehicle["name"]}").first
+      img_farm = img_info.farm
+      img_server = img_info.server
+      img_id = img_info.id
+      img_secret = img_info.secret
+      img_url = "https://farm#{img_farm}.staticflickr.com/#{img_server}/#{img_id}_#{img_secret}.jpg"
+    else
+      img_url = ""
+    end
+    Vehicle.create!({
+      name: vehicle["name"],
+      img_url: img_url,
+      model: vehicle["model"],
+      manufacturer: vehicle["manufacturer"],
+      cost_in_credits: vehicle["cost_in_credits"],
+      cargo_capacity: vehicle["cargo_capacity"],
+      vehicle_class: vehicle["vehicle_class"],
+      max_atmosphering_speed: vehicle["max_atmosphering_speed"],
+      crew: vehicle["crew"],
+      passengers: vehicle["passengers"],
+      length: vehicle["length"],
+      films: vehicle["films"],
+      url: vehicle["url"]
+    })
+  end
+end
+#Starships added into vehicles
+100.times do |i|
+  begin
+    vehicle = JSON.parse(Swapi.get_starship(i + 1))
+  rescue => e
+    puts e
+  else
+    if img_info = flickr.photos.search(tags: "#{vehicle["name"]}").first
+      img_farm = img_info.farm
+      img_server = img_info.server
+      img_id = img_info.id
+      img_secret = img_info.secret
+      img_url = "https://farm#{img_farm}.staticflickr.com/#{img_server}/#{img_id}_#{img_secret}.jpg"
+    else
+      img_url = ""
+    end
+    Vehicle.create!({
+      name: vehicle["name"],
+      img_url: img_url,
+      model: vehicle["model"],
+      manufacturer: vehicle["manufacturer"],
+      cost_in_credits: vehicle["cost_in_credits"],
+      cargo_capacity: vehicle["cargo_capacity"],
+      vehicle_class: vehicle["vehicle_class"],
+      max_atmosphering_speed: vehicle["max_atmosphering_speed"],
+      crew: vehicle["crew"],
+      passengers: vehicle["passengers"],
+      length: vehicle["length"],
+      films: vehicle["films"],
+      url: vehicle["url"]
+    })
+  end
+end
+
+unknown_vehicle = Vehicle.create!({
+  name: "unknown"
+})
+
+#Characters Create
+characters = []
+87.times do |i|
+  begin
+    person = JSON.parse(Swapi.get_person(i + 1))
+  rescue => e
+    puts e
+  else
+    planet = Homeworld.find_by url: person["homeworld"]
+    species = Species.find_by url: person["species"]
+    if species == nil
+      species = species_unknown
+    end
+    if planet == nil
+      planet = homeworld_unknown
+    end
+    if img_info = flickr.photos.search(tags: "#{person["name"]}").first
+      img_farm = img_info.farm
+      img_server = img_info.server
+      img_id = img_info.id
+      img_secret = img_info.secret
+      img_url = "https://farm#{img_farm}.staticflickr.com/#{img_server}/#{img_id}_#{img_secret}.jpg"
+    else
+      img_url = ""
+    end
+    characters << Character.create!({
+    name: person["name"],
+    img_url: img_url,
+    birth_year: person["birth_year"],
+    height: person["height"],
+    mass: person["mass"],
+    films: person["films"],
+    url: person["url"],
+    alliance: rebel,
+    homeworld: planet,
+    species: species
+    })
+    #vehicles attached to characters through transportation
+    vehicles = Vehicle.where(url: person["vehicles"])
+    if vehicles == nil
+      vehicles = unknown_vehicle
+    end
+    vehicles.each do |bike|
+      character = Character.find_by name: person["name"]
+      Transportation.create!(character: character, vehicle: bike)
+    end
+    #starships aka vehicles attached to characters through transportation
+    vehicles = Vehicle.where(url: person["starships"])
+    if vehicles == nil
+      vehicles = unknown_vehicle
+    end
+    vehicles.each do |bike|
+      character = Character.find_by name: person["name"]
+      Transportation.create!(character: character, vehicle: bike)
+    end
+  end
+end
+
+# starships = Vehicle.find_by url: person["starships"]
+
+# sand = Vehicle.find_by name: "Sand Crawler"
+#
+# darth_in_sand = Transportation.create!(character: darth, vehicle: sand)
+
+# characters.each do |person|
+#   vehicle = Vehicle.find_by url: person.vehicles[0]
+#   if (vehicle != nil && vehicle != "")
+#     Transportation.create!(character: person, vehicle: vehicle)
 #   else
-#     Homeworld.create!({
-#       name: planet["name"],
-#       climate: planet["climate"],
-#       terrain: planet["terrain"],
-#       population: planet["population"],
-#       gravity: planet["gravity"],
-#       films: planet["films"],
-#       url: planet["url"]
-#     })
+#     Transportation.create!(character: person, vehicle: unknown_vehicle)
 #   end
 # end
-#
-# homeworld_unknown = Homeworld.create!({
-#   name: "Unknown",
-#   url: ""
-#   })
-#
-# #Species Create
-# 37.times do |i|
-#   begin
-#     species = JSON.parse(Swapi.get_species(i + 1))
-#   rescue => e
-#     puts e
-#   else
-#     planet = Homeworld.find_by url: species["homeworld"]
-#     if planet == nil
-#       planet = Homeworld.first
-#     end
-#     Species.create!({
-#       name: species["name"],
-#       designation: species["designation"],
-#       classification: species["classification"],
-#       average_height: species["average_height"],
-#       average_lifespan: species["average_lifespan"],
-#       skin_colors: species["skin_colors"],
-#       language: species["languages"],
-#       films: species["films"],
-#       url: species["url"],
-#       homeworld: planet
-#     })
-#   end
-# end
-#
-# species_unknown = Species.create!({
-#   name: "unknown",
-#   homeworld: homeworld_unknown
-# })
-#
-# #Vehicles Create
-# 100.times do |i|
-#   begin
-#     vehicle = JSON.parse(Swapi.get_vehicle(i + 1))
-#   rescue => e
-#     puts e
-#   else
-#     Vehicle.create!({
-#       name: vehicle["name"],
-#       model: vehicle["model"],
-#       manufacturer: vehicle["manufacturer"],
-#       cost_in_credits: vehicle["cost_in_credits"],
-#       cargo_capacity: vehicle["cargo_capacity"],
-#       vehicle_class: vehicle["vehicle_class"],
-#       max_atmosphering_speed: vehicle["max_atmosphering_speed"],
-#       crew: vehicle["crew"],
-#       passengers: vehicle["passengers"],
-#       length: vehicle["length"],
-#       films: vehicle["films"],
-#       url: vehicle["url"]
-#     })
-#   end
-# end
-# #Starships added into vehicles
-# 100.times do |i|
-#   begin
-#     vehicle = JSON.parse(Swapi.get_starship(i + 1))
-#   rescue => e
-#     puts e
-#   else
-#     Vehicle.create!({
-#       name: vehicle["name"],
-#       model: vehicle["model"],
-#       manufacturer: vehicle["manufacturer"],
-#       cost_in_credits: vehicle["cost_in_credits"],
-#       cargo_capacity: vehicle["cargo_capacity"],
-#       vehicle_class: vehicle["vehicle_class"],
-#       max_atmosphering_speed: vehicle["max_atmosphering_speed"],
-#       crew: vehicle["crew"],
-#       passengers: vehicle["passengers"],
-#       length: vehicle["length"],
-#       films: vehicle["films"],
-#       url: vehicle["url"]
-#     })
-#   end
-# end
-#
-# unknown_vehicle = Vehicle.create!({
-#   name: "unknown"
-# })
-#
-# #Characters Create
-# characters = []
-# 87.times do |i|
-#   begin
-#     person = JSON.parse(Swapi.get_person(i + 1))
-#   rescue => e
-#     puts e
-#   else
-#     planet = Homeworld.find_by url: person["homeworld"]
-#     species = Species.find_by url: person["species"]
-#     if species == nil
-#       species = species_unknown
-#     end
-#     if planet == nil
-#       planet = homeworld_unknown
-#     end
-#     characters << Character.create!({
-#     name: person["name"],
-#     birth_year: person["birth_year"],
-#     height: person["height"],
-#     mass: person["mass"],
-#     films: person["films"],
-#     url: person["url"],
-#     alliance: rebel,
-#     homeworld: planet,
-#     species: species
-#     })
-#     #vehicles attached to characters through transportation
-#     vehicles = Vehicle.where(url: person["vehicles"])
-#     if vehicles == nil
-#       vehicles = unknown_vehicle
-#     end
-#     vehicles.each do |bike|
-#       character = Character.find_by name: person["name"]
-#       Transportation.create!(character: character, vehicle: bike)
-#     end
-#     #starships aka vehicles attached to characters through transportation
-#     vehicles = Vehicle.where(url: person["starships"])
-#     if vehicles == nil
-#       vehicles = unknown_vehicle
-#     end
-#     vehicles.each do |bike|
-#       character = Character.find_by name: person["name"]
-#       Transportation.create!(character: character, vehicle: bike)
-#     end
-#   end
-# end
-#
-# # starships = Vehicle.find_by url: person["starships"]
-#
-# # sand = Vehicle.find_by name: "Sand Crawler"
-# #
-# # darth_in_sand = Transportation.create!(character: darth, vehicle: sand)
-#
-# # characters.each do |person|
-# #   vehicle = Vehicle.find_by url: person.vehicles[0]
-# #   if (vehicle != nil && vehicle != "")
-# #     Transportation.create!(character: person, vehicle: vehicle)
-# #   else
-# #     Transportation.create!(character: person, vehicle: unknown_vehicle)
-# #   end
-# # end
 #
 # xwing = Vehicle.find_by name: "X-wing"
 # xwing.img_url="https://lumiere-a.akamaihd.net/v1/images/open-uri20150608-27674-1uu8j7u_83e38031.jpeg?region=0%2C0%2C1200%2C507"
