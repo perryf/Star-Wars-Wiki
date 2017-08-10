@@ -1,24 +1,18 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Description
 
-Things you may want to cover:
+This site is a wikipedia type website specifically for Star Wars.  You can see info and images about characters, species, vehicles, planets, and alliances.  You can also edit, and delete any of these models, or create your own!
 
-* Ruby version
+## Technologies Used
+* This site was built on Ruby on Rails
+* Other tools used were ActiveRecord, CSS, HTML, GIT
 
-* System dependencies
+## Data Collecting/Outsourcing
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Massive amounts of data was gathered from Swapi (Star Wars API)
+* I also used FlickRaw to access the Flickr API, where I collected most of my images from
+* More info and images were put in from "http://www.starwars.com/databank/"
+* Even more info was gathered from "http://starwars.wikia.com/wiki/Main_Page" AKA Wookieepedia
+* Star Jedi font used made by 'Boba Fonts'
+* Intro made with "https://brorlandi.github.io/StarWarsIntroCreator/"

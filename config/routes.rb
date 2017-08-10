@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root to: 'characters#index'
+  root to: "pages#index"
   resources :species
 
   resources :alliances do
@@ -10,4 +10,6 @@ Rails.application.routes.draw do
   end
   resources :characters
   resources :vehicles
+  
+  get "pages" => "pages#index"
 end
