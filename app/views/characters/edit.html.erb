@@ -1,72 +1,76 @@
-<div class="edit-form">
-  <h2>Edit this Character</h2>
+<div class="edit-page">
+  <div class="edit-form">
+    <h2>Edit this Character</h2>
+  </div>
+  <div class="form-container">
+    <%= form_for ([@character.alliance, @character]) do |f| %>
+    <div class="edit-form">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+
+    <div class="edit-form">
+      <%= f.label :img_url %>
+      <%= f.text_field :img_url %>
+    </div>
+
+    <div class="edit-form">
+      <%= f.label :bio %>
+      <%= f.text_field :bio %>
+    </div>
+
+    <div class="edit-form">
+      <%= f.label :class %>
+      <%= f.text_field :classification %>
+    </div>
+
+    <div class="edit-form">
+      <%= f.label :birth_year %>
+      <%= f.text_field :birth_year %>
+    </div>
+
+    <div class="edit-form">
+      <%= f.label :height %>
+      <%= f.text_field :height %>
+    </div>
+
+    <div class="edit-form">
+      <%= f.label :mass %>
+      <%= f.text_field :mass %>
+    </div>
+
+    <% cruisers = [] %>
+    <% @character.vehicles.each do |i| %>
+      <% cruisers << i.id %>
+    <% end %>
+
+    <div class="edit-form">
+      <%= f.label :vehicles %>
+      <%= f.select :vehicles, Vehicle.all.collect{|vehicle| [vehicle.name, vehicle.id]},
+        {:selected => cruisers},
+      {:multiple => true} %>
+    </div>
+
+    <div class="edit-form">
+      <%= f.label :species %>
+      <%= select(:character, :species_id, Species.all.collect{|species| [species.name, species.id]}) %>
+    </div>
+
+    <div class="edit-form">
+      <%= f.label :home_planet %>
+      <%= select(:character, :homeworld_id, Homeworld.all.collect{|homeworld| [homeworld.name, homeworld.id]})%>
+    </div>
+
+    <div class="edit-form">
+      <%= f.label :alliance %>
+      <%= select(:character, :alliance_id, Alliance.all.collect{|team| [team.name, team.id]})%>
+    </div>
+
+    <%= f.submit :class => 'submit'%>
+
+    <div class="edit-form">
+      <%= link_to "Destroy this Character", alliance_character_path(@character.alliance, @character), method: :delete, class: "delete character-link", :data => {:confirm => 'Are you sure?'} %>
+    </div>
+    <% end %>
+  </div>
 </div>
-  <%= form_for ([@character.alliance, @character]) do |f| %>
-  <div class="edit-form">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
-
-  <div class="edit-form">
-    <%= f.label :img_url %>
-    <%= f.text_field :img_url %>
-  </div>
-
-  <div class="edit-form">
-    <%= f.label :bio %>
-    <%= f.text_field :bio %>
-  </div>
-
-  <div class="edit-form">
-    <%= f.label :class %>
-    <%= f.text_field :classification %>
-  </div>
-
-  <div class="edit-form">
-    <%= f.label :birth_year %>
-    <%= f.text_field :birth_year %>
-  </div>
-
-  <div class="edit-form">
-    <%= f.label :height %>
-    <%= f.text_field :height %>
-  </div>
-
-  <div class="edit-form">
-    <%= f.label :mass %>
-    <%= f.text_field :mass %>
-  </div>
-
-  <% cruisers = [] %>
-  <% @character.vehicles.each do |i| %>
-    <% cruisers << i.id %>
-  <% end %>
-
-  <div class="edit-form">
-    <%= f.label :vehicles %>
-    <%= f.select :vehicles, Vehicle.all.collect{|vehicle| [vehicle.name, vehicle.id]},
-      {:selected => cruisers},
-    {:multiple => true} %>
-  </div>
-
-  <div class="edit-form">
-    <%= f.label :species %>
-    <%= select(:character, :species_id, Species.all.collect{|species| [species.name, species.id]}) %>
-  </div>
-
-  <div class="edit-form">
-    <%= f.label :home_planet %>
-    <%= select(:character, :homeworld_id, Homeworld.all.collect{|homeworld| [homeworld.name, homeworld.id]})%>
-  </div>
-
-  <div class="edit-form">
-    <%= f.label :alliance %>
-    <%= select(:character, :alliance_id, Alliance.all.collect{|team| [team.name, team.id]})%>
-  </div>
-
-  <div class="edit-form">
-    <%= f.submit %>
-  </div>
-<% end %>
-
-<%= link_to "Destroy this Character", alliance_character_path(@character.alliance, @character), method: :delete, class: "delete character-link", :data => {:confirm => 'Are you sure?'} %>

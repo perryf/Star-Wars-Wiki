@@ -1,45 +1,49 @@
-<div class="edit-form">
-  <h2>Create a new Planet</h2>
+<div class="edit-page">
+  <div class="edit-form">
+    <h2>Edit <%= @planet.name %> </h2>
+  </div>
+  <div class="form-container">
+    <%= form_for @planet do |f| %>
+    <div class="edit-form">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+
+    <div class="edit-form">
+      <%= f.label :img_url %>
+      <%= f.text_field :img_url %>
+    </div>
+
+    <div class="edit-form">
+      <%= f.label :bio %>
+      <%= f.text_field :bio %>
+    </div>
+
+    <div class="edit-form">
+      <%= f.label :climate %>
+      <%= f.text_field :climate %>
+    </div>
+
+    <div class="edit-form">
+      <%= f.label :terrain %>
+      <%= f.text_field :terrain %>
+    </div>
+
+    <div class="edit-form">
+      <%= f.label :population %>
+      <%= f.text_field :population %>
+    </div>
+
+    <div class="edit-form">
+      <%= f.label :gravity %>
+      <%= f.text_field :gravity %>
+    </div>
+
+    <%= f.submit :class => 'submit' %>
+
+    <div class="edit-form">
+      <%= link_to "Destroy this Planet and commit mass genocide", homeworld_path(@planet), method: :delete, class: "delete homeworld-link", :data => {:confirm => 'This will destroy the entire planet and everyone on it.  Are you sure??????'} %>
+    </div>
+    <% end %>
+  </div>
 </div>
-  <%= form_for @planet do |f| %>
-  <div class="edit-form">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
-
-  <div class="edit-form">
-    <%= f.label :img_url %>
-    <%= f.text_field :img_url %>
-  </div>
-
-  <div class="edit-form">
-    <%= f.label :bio %>
-    <%= f.text_field :bio %>
-  </div>
-
-  <div class="edit-form">
-    <%= f.label :climate %>
-    <%= f.text_field :climate %>
-  </div>
-
-  <div class="edit-form">
-    <%= f.label :terrain %>
-    <%= f.text_field :terrain %>
-  </div>
-
-  <div class="edit-form">
-    <%= f.label :population %>
-    <%= f.text_field :population %>
-  </div>
-
-  <div class="edit-form">
-    <%= f.label :gravity %>
-    <%= f.text_field :gravity %>
-  </div>
-
-  <div class="edit-form">
-    <%= f.submit %>
-  </div>
-<% end %>
-
-<%= link_to "Destroy this Planet and commit mass genocide?", homeworld_path(@planet), method: :delete, class: "delete homeworld-link", :data => {:confirm => 'This will destroy the entire planet and everyone on it.  Are you sure??????'} %>

@@ -146,6 +146,40 @@ h2 {
   max-height: 120px;
 }
 
+.edit-page {
+  margin: auto;
+  text-align: center;
+}
+
+.form-container {
+  background: rgba(100, 100, 100, 0.5);
+  width: 400px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.edit-form {
+  width: 400px;
+  text-align: center;
+  margin: 20px auto;
+}
+
+.edit-form input {
+  display: block;
+  margin: auto;
+  width: 300px;
+}
+
+.submit {
+  font-size: 14px;
+  background: grey;
+  height: 30px;
+  width: 200px;
+  border-radius: 10px;
+  box-shadow: 10px 10px 20px #222;
+}
+
 @media only screen and (max-width: 800px) {
   .show-page {
     width: 490px;

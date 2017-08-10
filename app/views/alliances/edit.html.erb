@@ -1,20 +1,24 @@
-<div class="edit-form">
-  <h2>Edit this Alliance</h2>
-</div>
-  <%= form_for (@alliance) do |f| %>
+<div class="edit-page">
   <div class="edit-form">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
+    <h2>Edit this Alliance</h2>
   </div>
+  <div class="form-container">
+    <%= form_for (@alliance) do |f| %>
+    <div class="edit-form">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
 
-  <div class="edit-form">
-    <%= f.label :img_url %>
-    <%= f.text_field :img_url %>
-  </div>
+    <div class="edit-form">
+      <%= f.label :img_url %>
+      <%= f.text_field :img_url %>
+    </div>
 
-  <div class="edit-form">
     <%= f.submit %>
-  </div>
-<% end %>
 
-<%= link_to "Destroy this Alliance", alliance_path(@alliance), method: :delete, class: "delete alliance-link", :data => {:confirm => 'Are you sure?'} %>
+    <div class="edit-form">
+      <%= link_to "Destroy this Alliance", alliance_path(@alliance), method: :delete, class: "delete alliance-link", :data => {:confirm => 'Are you sure?'} %>
+    </div>
+  <% end %>
+
+</div>
