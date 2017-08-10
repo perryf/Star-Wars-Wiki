@@ -1,33 +1,55 @@
-<%= link_to "Edit this Planet", edit_homeworld_path %>
-<h2><%= @planet.name %></h2>
-<% if @planet.img_url != nil %>
-  <img src="<%= @planet.img_url %>" alt="<% @planet.name %>" width="300px">
-<% end %>
-<% if @planet.bio != nil %>
-  <p>Bio: <%= @planet.bio %></p>
-<% else %>
-  <p>Bio: little is known about <%= @planet.name %></p>
-<% end %>
-<p>Climate: <%= @planet.climate %></p>
-<p>Terrain: <%= @planet.terrain %></p>
-<p>Population: <%= @planet.population %></p>
-<p>Gravity: <%= @planet.gravity %></p>
-<p>Inhabiting Species</p>
-<% @planet.species.each do |critter| %>
-  <ul>
-    <li><a href="<%= species_path(critter) %>"><%= critter.name %></a></li>
-  </ul>
-<% end %>
-<p>Notable Characters</p>
-<% @planet.characters.each do |character| %>
-  <ul>
-    <li><a href="<%= character_path(character) %>"><%= character.name %></a></li>
-  </ul>
-<% end %>
+<div class="show-page">
+  <%= link_to "Edit this Planet", edit_homeworld_path, { :class=>"edit-link" } %>
 
-<p>films:</p>
-<ul>
-  <% @films.each do |film| %>
-    <li>Episode: <%= film[film.length-2] %></li>
+  <h2><%= @planet.name %></h2>
+  <% if @planet.img_url != nil %>
+    <img src="<%= @planet.img_url %>" alt="<% @planet.name %>" class="show-img">
   <% end %>
-</ul>
+  <% if @planet.bio != nil %>
+    <p>Bio: <%= @planet.bio %></p>
+  <% else %>
+    <p>Bio: little is known about <%= @planet.name %></p>
+  <% end %>
+  <p>Climate: <%= @planet.climate %></p>
+  <p>Terrain: <%= @planet.terrain %></p>
+  <p>Population: <%= @planet.population %></p>
+  <p>Gravity: <%= @planet.gravity %></p>
+  <p>Inhabiting Species</p>
+  <% @planet.species.each do |critter| %>
+    <ul>
+      <li><a href="<%= species_path(critter) %>"><%= critter.name %></a></li>
+    </ul>
+  <% end %>
+
+  <% if @planet.characters[0] != nil %>
+    <p>Notable <%= @planet.name %> Inhabitants:</p>
+    <ul class="show-page-list">
+      <% @planet.characters.each do |character| %>
+        <a href="<%= character_path(character) %>">
+          <li><%= character.name %></li>
+          <img src="<%= character.img_url %>" alt="<%= character.name %>" class="character-show-img">
+        </a>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>Notable Inhabitants: None</p>
+  <% end %>
+
+  <% @films.sort! %>
+  <ul class="films">
+  <li class="film">Films:</li>
+    <% @films.each_with_index do |film, i| %>
+      <li class="film">
+        <% url_id = film[film.length-2].to_i %>
+        <% if url_id <= 3 %>
+          <% url_id = url_id + 3 %>
+        <% elsif url_id <=6 %>
+          <% url_id = url_id - 3 %>
+        <% end %>
+        Episode <%= url_id %>
+        <% if i < (@films.length - 1) %> ,
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</div

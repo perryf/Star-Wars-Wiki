@@ -7,7 +7,7 @@ class VehiclesController < ApplicationController
   end
   def create
     @vehicle = Vehicle.create!(vehicle_params)
-    redirect_to vehicle_path(@vehicle), notice: "Vehicle was successfully created"
+    redirect_to vehicle_path(@vehicle), notice: "Transport was successfully created"
   end
   def show
     @vehicle = Vehicle.find(params[:id])
@@ -19,13 +19,13 @@ class VehiclesController < ApplicationController
   def update
     @vehicle = Vehicle.find(params[:id])
     @vehicle.update(vehicle_params)
-    redirect_to vehicle_path(@vehicle), notice: "Vehicle was successfully created"
+    redirect_to vehicle_path(@vehicle), notice: "Transport was successfully created"
   end
   def destroy
     @vehicle = Vehicle.find(params[:id])
     @vehicle.transportations.destroy_all
     @vehicle.destroy
-    redirect_to vehicles_path, notice: "Vehicle was successfully destroyed"
+    redirect_to vehicles_path, notice: "Vehicle was successfully Transport"
   end
   private
   def vehicle_params

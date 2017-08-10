@@ -1,6 +1,18 @@
-<%= link_to "Edit this Alliance", edit_alliance_path %>
-<h2><%= @alliance.name %></h2>
-<img src="<%= @alliance.img_url %>" alt="<% @alliance.name %>" width="300px">
-<% @alliance.characters.each do |character| %>
-  <a href="<%= character_path(character) %>"><p><%= character.name %></p></a>
-<% end %>
+<div class="show-page">
+
+  <%= link_to "Edit this Alliance", edit_alliance_path, { :class=>"edit-link" } %>
+  <h2><%= @alliance.name %></h2>
+  <img src="<%= @alliance.img_url %>" alt="<% @alliance.name %>" class="show-img">
+
+  <div class="index-all">
+    <% @alliance.characters.each do |character| %>
+      <div class="index-box">
+        <a href="<%= character_path(character) %>">
+          <p><%= character.name %></p>
+          <img src="<%= character.img_url %>" alt="<%= character.name %>" class="index-img">
+        </a>
+      </div>
+    <% end %>
+  </div>
+
+</div>

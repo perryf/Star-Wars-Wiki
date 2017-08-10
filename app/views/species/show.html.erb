@@ -1,36 +1,57 @@
-<%= link_to 'Edit', edit_species_path %>
+<div class="show-page">
+  <%= link_to 'Edit this Species', edit_species_path, { :class=>"edit-link" } %>
 
-<h2><%= @species.name %></h2>
-<% if @species.img_url != nil %>
-  <img src="<%= @species.img_url %>" alt="<% @species.name %>" width="300px">
-<% end %>
-
-<p>Designation: <%= @species.designation %></p>
-
-<p>Classification: <%= @species.classification %></p>
-
-<% if @species.average_height != nil && @species.average_height != 0 %>
-<p>Average Height:
-  <%= ((@species.average_height*0.39).round / 12).floor %> Ft,
-  <%= (@species.average_height*0.39).round % 12 %> In
-</p>
-<% else %>
-  <p>height: unknown</p>
-<% end %>
-
-<p>average_lifespan: <%= @species.average_lifespan %> earth years</p>
-<p>skin_colors: <%= @species.skin_colors %></p>
-<p>Homeworld: <a href="<%= homeworld_path(@species.homeworld) %>"><%= @species.homeworld.name %></a></p>
-<p>Notable <%= @species.name %> Creatures</p>
-<% @species.characters.each do |character| %>
-  <ul>
-    <li><a href="<%= character_path(character) %>"><%= character.name %></a></li>
-  </ul>
-<% end %>
-
-<p>films:</p>
-<ul>
-  <% @films.each do |film| %>
-    <li>Episode: <%= film[film.length-2] %></li>
+  <h2><%= @species.name %></h2>
+  <% if @species.img_url != nil %>
+    <img src="<%= @species.img_url %>" alt="<% @species.name %>" class="show-img">
   <% end %>
-</ul>
+
+  <p>Designation: <%= @species.designation %></p>
+
+  <p>Classification: <%= @species.classification %></p>
+
+  <% if @species.average_height != nil && @species.average_height != 0 %>
+  <p>Average Height:
+    <%= ((@species.average_height*0.39).round / 12).floor %> Ft,
+    <%= (@species.average_height*0.39).round % 12 %> In
+  </p>
+  <% else %>
+    <p>height: unknown</p>
+  <% end %>
+
+  <% if @species.average_lifespan != nil && @species.average_lifespan != 0 %>
+    <p>Average Lifespan: <%= @species.average_lifespan %> years</p>
+  <% else %>
+    <p>Average Lifespan: unknown</p>
+  <% end %>
+
+  <p>Skin_colors: <%= @species.skin_colors %></p>
+  <p>Homeworld: <a href="<%= homeworld_path(@species.homeworld) %>"><%= @species.homeworld.name %></a></p>
+
+    <% if @species.characters[0] != nil %>
+      <p>Notable <%= @species.name %> Characters</p>
+      <ul class="show-page-list">
+        <% @species.characters.each do |character| %>
+        <a href="<%= character_path(character) %>">
+          <li><%= character.name %></li>
+          <img src="<%= character.img_url %>" alt="<%= character.name %>" class="character-show-img">
+        </a>
+        <% end %>
+      </ul>
+    <% else %>
+      <p>Notable Species: None</p>
+    <% end %>
+
+
+    <% @films.sort! %>
+    <ul class="films">
+    <li class="film">Films:</li>
+      <% @films.each_with_index do |film, i| %>
+        <li class="film">
+          Episode <%= film[film.length-2] %>
+          <% if i < (@films.length - 1) %> ,
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+</div>

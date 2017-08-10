@@ -42,6 +42,15 @@ header {
   font-family: "Jedi";
 }
 
+p, li {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 2em;
+}
+
 .main-heading {
   font-size: 4em;
   color: yellow;
@@ -86,4 +95,61 @@ header {
 .index-img {
   width: 120px;
   max-height: 160px;
+}
+
+.show-page {
+  width: 800px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  border: 1px rgba(250, 250, 0, 0.5) solid;
+  border-radius: 10px;
+}
+
+.edit-link {
+  text-align: left;
+  padding: 4px 10px;
+}
+
+.show-img {
+  margin: auto;
+  width: 500px;
+}
+
+.films {
+  padding-left: 0;
+  list-style: none;
+}
+
+.film {
+  display: inline;
+}
+
+.show-page-list {
+  padding-left: 0;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0px;
+  text-align: center;
+}
+
+.show-page-box {
+  margin: 8px;
+}
+
+.character-show-img {
+  width: 120px
+}
+
+@media only screen and (max-width: 800px) {
+  .show-page {
+    width: 490px;
+  }
+  .show-img {
+    width: 300px;
+  }
 }

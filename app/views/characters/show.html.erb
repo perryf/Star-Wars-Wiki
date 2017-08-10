@@ -1,52 +1,79 @@
-<h2><%= @character.name %></h2>
+<div class="show-page">
+  <%= link_to "Edit this Character", edit_character_path, { :class=>"edit-link" } %>
 
+  <h2><%= @character.name %></h2>
 
-<% if @character.img_url != nil %>
-  <img src="<%= @character.img_url %>" alt="<%= @character.name %>" width="300px">
-<% end %>
-
-<p>Alliance: <a href="<%= alliance_path(@character.alliance) %>"><%= @character.alliance.name %></a></p>
-
-<% if @character.bio != "" %>
-  <p>bio: <%= @character.bio %></p>
-<% else %>
-  <p>bio: little is known about <%= @character.name %></p>
-<% end %>
-
-<% if @character.classification != "" %>
-  <p>class: <%= @character.classification %></p>
-  <% else %>
-    <p>class: unknown</p>
-<% end %>
-
-<% if @character.vehicles != nil || @character.vehicles != ""%>
-  <p>Vehicles driven:</p>
-  <ul>
-    <% @character.vehicles.each do |vehicle| %>
-      <li><a href="<%= vehicle_path(vehicle) %>"><%= vehicle.name %></a></li>
-    <% end %>
-  </ul>
-<% end %>
-
-<p>species: <a href="<%= species_path(@character.species) %>"> <%= @character.species.name %></a></p>
-<p>birth_year: <%= @character.birth_year %></p>
-<p>homeworld: <a href="<%= homeworld_path(@character.homeworld) %>"><%= @character.homeworld.name %></a></p>
-
-<% if @character.height != nil && @character.height != 0 %>
-  <p>height:
-    <%= ((@character.height*0.39).round / 12).floor %> Ft,
-    <%= (@character.height*0.39).round % 12 %> In
-  </p>
-  <% else %>
-    <p>height: unknown</p>
+  <% if @character.img_url != nil %>
+    <img src="<%= @character.img_url %>" alt="<%= @character.name %>" class="show-img">
   <% end %>
-<p>mass: <%= @character.mass %></p>
+  <p>Alliance: <a href="<%= alliance_path(@character.alliance) %>"><%= @character.alliance.name %></a></p>
 
-  <p>films:</p>
-  <ul>
-    <% @films.each do |film| %>
-      <li>Episode: <%= film[film.length-2] %></li>
+<div class="show-page-info">
+  <% if @character.bio != "" %>
+    <p>Bio: <%= @character.bio %></p>
+  <% else %>
+    <p>Bio: little is known about <%= @character.name %></p>
+  <% end %>
+
+  <% if @character.classification != "" %>
+    <p>Class: <%= @character.classification %></p>
+    <% else %>
+      <p>Class: unknown</p>
+  <% end %>
+
+  <% if @character.vehicles[0] != nil%>
+    <p>Vehicles driven:</p>
+    <ul class="show-page-list">
+      <% @character.vehicles.each_with_index do |vehicle, i| %>
+      <div class="show-page-box">
+        <a href="<%= vehicle_path(vehicle) %>">
+          <li><%= vehicle.name %></li>
+          <img src="<%= vehicle.img_url %>" alt="<%= vehicle.name %>" class="character-show-img">
+        </a>
+      </div>
+      <% end %>
+    </ul>
+    <% else %>
+    <p>Vehicles driver: none</p>
+  <% end %>
+
+  <p>Species: <a href="<%= species_path(@character.species) %>"> <%= @character.species.name %></a></p>
+  <p>Birth_year: <%= @character.birth_year %></p>
+  <p>Homeworld: <a href="<%= homeworld_path(@character.homeworld) %>"><%= @character.homeworld.name %></a></p>
+
+  <% if @character.height != nil && @character.height != 0 %>
+    <p>Height:
+      <%= ((@character.height*0.39).round / 12).floor %> Ft,
+      <%= (@character.height*0.39).round % 12 %> In
+    </p>
+    <% else %>
+      <p>Height: unknown</p>
     <% end %>
-  </ul>
 
-<%= link_to "Edit this Character", edit_character_path %>
+  <% if @character.mass != nil && @character.mass != 0 %>
+    <p>Mass:
+      <%= (@character.mass*2.2).round %> Pounds
+    </p>
+    <% else %>
+      <p>Mass: unknown</p>
+    <% end %>
+
+    <% @films.sort! %>
+    <ul class="films">
+    <li class="film">Films:</li>
+      <% @films.each_with_index do |film, i| %>
+        <li class="film">
+          <% url_id = film[film.length-2].to_i %>
+          <% if url_id <= 3 %>
+            <% url_id = url_id + 3 %>
+          <% elsif url_id <=6 %>
+            <% url_id = url_id - 3 %>
+          <% end %>
+          Episode <%= url_id %>
+          <% if i < (@films.length - 1) %> ,
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

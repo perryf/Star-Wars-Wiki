@@ -1,28 +1,70 @@
-<h2><%= @vehicle.name %></h2>
+<div class="show-page">
+    <%= link_to "Edit this Vehicle", edit_vehicle_path, { :class=>"edit-link" } %>
+  <h2><%= @vehicle.name %></h2>
 
-<img src="<%= @vehicle.img_url %>" alt="<%= @vehicle.name %>" width= "300px">
+  <img src="<%= @vehicle.img_url %>" alt="<%= @vehicle.name %>" class="show-img">
 
-<p>Class: <%= @vehicle.vehicle_class %></p>
-<p>Model: <%= @vehicle.model %></p>
-<p>Manufacturer: <%= @vehicle.manufacturer %></p>
-<p>Length: <%= @vehicle.length %> Ft</p>
-<p>Cost in Credits: <%= @vehicle.cost_in_credits %></p>
-<p>Cargo Capacity: <%= @vehicle.cargo_capacity %></p>
-<p>Max Speed: <%= @vehicle.max_atmosphering_speed %></p>
-<p>Crew: <%= @vehicle.crew %></p>
-<p>Passengers: <%= @vehicle.passengers %></p>
-<p>Notable Drivers</p>
-<% @vehicle.characters.each do |character| %>
-  <ul>
-    <li><a href="<%= character_path(character) %>"><%= character.name %></a></li>
-  </ul>
-<% end %>
+  <p>Class: <%= @vehicle.vehicle_class %></p>
+  <p>Model: <%= @vehicle.model %></p>
+  <p>Manufacturer: <%= @vehicle.manufacturer %></p>
 
-<p>films:</p>
-<ul>
-  <% @films.each do |film| %>
-    <li>Episode: <%= film[film.length-2] %></li>
+  <% if @vehicle.length != nil && @vehicle.length != 0 %>
+    <p>Length:
+      <%= (@vehicle.length*3.3).round %> Ft
+    </p>
+    <% else %>
+      <p>Height: unknown</p>
+    <% end %>
+
+  <p>Cost: <%= @vehicle.cost_in_credits %> Credits</p>
+
+  <p>Cargo Capacity:
+    <% if @vehicle.cargo_capacity == 0 %>
+      <%= @vehicle.cargo_capacity %> Tons
+    <% elsif @vehicle.cargo_capacity != nil %>
+      <% cargo = (@vehicle.cargo_capacity/100).round %>
+      <% if cargo == 1 %>
+        <%= cargo %> Ton
+      <% else %>
+        <%= cargo %> Tons
+      <% end %>
+    <% else %>
+      unknown
+    <% end %>
+  </p>
+
+  <p>Maximum Speed:
+    <%= (@vehicle.max_atmosphering_speed.to_i * 0.62).round %> mph
+  </p>
+
+  <p>Crew: <%= @vehicle.crew %></p>
+  <p>Maximum Passengers: <%= @vehicle.passengers %></p>
+
+  <% if @vehicle.characters[0] != nil %>
+    <p>Notable <%= @vehicle.name %> Drivers:</p>
+    <ul class="show-page-list">
+      <% @vehicle.characters.each do |character| %>
+        <div class="show-page-box">
+          <a href="<%= character_path(character) %>">
+            <li><%= character.name %></li>
+            <img src="<%= character.img_url %>" alt="<%= character.name %>" class="character-show-img">
+          </a>
+        </div>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>Notable <%= @vehicle.name %> Drivers: None</p>
   <% end %>
-</ul>
 
-<%= link_to "Edit this Vehicle", edit_vehicle_path %>
+  <% @films.sort! %>
+  <ul class="films">
+  <li class="film">Films:</li>
+    <% @films.each_with_index do |film, i| %>
+      <li class="film">
+        Episode <%= film[film.length-2] %>
+        <% if i < (@films.length - 1) %> ,
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</div>
