@@ -92,6 +92,10 @@ h2 {
   border-radius: 10px;
 }
 
+.index-box li {
+  margin: 4px;
+}
+
 .index-img {
   width: 120px;
   max-height: 160px;
@@ -137,12 +141,9 @@ h2 {
   text-align: center;
 }
 
-.show-page-box {
-  margin: 8px;
-}
-
 .character-show-img {
-  width: 120px
+  width: 120px;
+  max-height: 120px;
 }
 
 @media only screen and (max-width: 800px) {

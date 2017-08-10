@@ -32,10 +32,12 @@
       <p>Notable <%= @species.name %> Characters</p>
       <ul class="show-page-list">
         <% @species.characters.each do |character| %>
-        <a href="<%= character_path(character) %>">
-          <li><%= character.name %></li>
-          <img src="<%= character.img_url %>" alt="<%= character.name %>" class="character-show-img">
-        </a>
+        <div class="index-box">
+          <a href="<%= character_path(character) %>">
+            <li><%= character.name %></li>
+            <img src="<%= character.img_url %>" alt="<%= character.name %>" class="character-show-img">
+          </a>
+        </div>
         <% end %>
       </ul>
     <% else %>

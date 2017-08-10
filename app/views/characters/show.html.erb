@@ -25,7 +25,7 @@
     <p>Vehicles driven:</p>
     <ul class="show-page-list">
       <% @character.vehicles.each_with_index do |vehicle, i| %>
-      <div class="show-page-box">
+      <div class="index-box">
         <a href="<%= vehicle_path(vehicle) %>">
           <li><%= vehicle.name %></li>
           <img src="<%= vehicle.img_url %>" alt="<%= vehicle.name %>" class="character-show-img">

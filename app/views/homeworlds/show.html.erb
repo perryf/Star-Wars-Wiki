@@ -25,10 +25,12 @@
     <p>Notable <%= @planet.name %> Inhabitants:</p>
     <ul class="show-page-list">
       <% @planet.characters.each do |character| %>
+      <div class="index-box">
         <a href="<%= character_path(character) %>">
           <li><%= character.name %></li>
           <img src="<%= character.img_url %>" alt="<%= character.name %>" class="character-show-img">
         </a>
+      </div>
       <% end %>
     </ul>
   <% else %>

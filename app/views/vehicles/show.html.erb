@@ -44,7 +44,7 @@
     <p>Notable <%= @vehicle.name %> Drivers:</p>
     <ul class="show-page-list">
       <% @vehicle.characters.each do |character| %>
-        <div class="show-page-box">
+        <div class="index-box">
           <a href="<%= character_path(character) %>">
             <li><%= character.name %></li>
             <img src="<%= character.img_url %>" alt="<%= character.name %>" class="character-show-img">
