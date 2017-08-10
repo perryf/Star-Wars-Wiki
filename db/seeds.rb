@@ -522,6 +522,7 @@ stormtrooper.img_url = "https://lumiere-a.akamaihd.net/v1/images/Stormtroopers_f
 stormtrooper.save
 
 jawas = Species.new
+jawas.name = "Jawas"
 jawas.homeworld = Homeworld.find_by name: "Tatooine"
 jawas.img_url = "https://lumiere-a.akamaihd.net/v1/images/jawas_42e63e07.jpeg?region=866%2C10%2C1068%2C601"
 jawas.average_height = 1
