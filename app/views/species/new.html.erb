@@ -1,58 +1,62 @@
-<div class="edit-form">
-  <h2>Create a new Species</h2>
+<div class="edit-page">
+  <div class="edit-form">
+    <h2>Create a new Species</h2>
+  </div>
+  <div class="form-container">
+    <%= form_for @species do |f| %>
+    <div class="edit-form">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+
+    <div class="edit-form">
+      <%= f.label :homeworld %>
+      <%= select(:species, :homeworld_id, Homeworld.all.collect{|planet| [planet.name, planet.id ]}) %>
+    </div>
+
+    <div class="edit-form">
+      <%= f.label :img_url %>
+      <%= f.text_field :img_url %>
+    </div>
+
+    <div class="edit-form">
+      <%= f.label :designation %>
+      <%= f.text_field :designation %>
+    </div>
+
+    <div class="edit-form">
+      <%= f.label :classification %>
+      <%= f.text_field :classification %>
+    </div>
+
+    <div class="edit-form">
+      <%= f.label :average_height %>
+      <%= f.text_field :average_height %>
+    </div>
+
+    <div class="edit-form">
+      <%= f.label :average_lifespan %>
+      <%= f.text_field :average_lifespan %>
+    </div>
+
+    <div class="edit-form">
+      <%= f.label :language %>
+      <%= f.text_field :language %>
+    </div>
+
+    <div class="edit-form">
+      <%= f.label :skin_colors %>
+      <%= f.text_field :skin_colors %>
+    </div>
+
+    <div class="edit-form">
+      <%= f.label :films %>
+      <%= f.text_field :films %>
+    </div>
+
+    <div class="edit-form">
+      <%= f.submit :class => 'submit' %>
+    </div>
+  <% end %>
+  </div>
 </div>
-  <%= form_for @species do |f| %>
-  <div class="edit-form">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
-
-  <div class="edit-form">
-    <%= f.label :homeworld %>
-    <%= select(:species, :homeworld_id, Homeworld.all.collect{|planet| [planet.name, planet.id ]}) %>
-  </div>
-
-  <div class="edit-form">
-    <%= f.label :img_url %>
-    <%= f.text_field :img_url %>
-  </div>
-
-  <div class="edit-form">
-    <%= f.label :designation %>
-    <%= f.text_field :designation %>
-  </div>
-
-  <div class="edit-form">
-    <%= f.label :classification %>
-    <%= f.text_field :classification %>
-  </div>
-
-  <div class="edit-form">
-    <%= f.label :average_height %>
-    <%= f.text_field :average_height %>
-  </div>
-
-  <div class="edit-form">
-    <%= f.label :average_lifespan %>
-    <%= f.text_field :average_lifespan %>
-  </div>
-
-  <div class="edit-form">
-    <%= f.label :language %>
-    <%= f.text_field :language %>
-  </div>
-
-  <div class="edit-form">
-    <%= f.label :skin_colors %>
-    <%= f.text_field :skin_colors %>
-  </div>
-
-  <div class="edit-form">
-    <%= f.label :films %>
-    <%= f.text_field :films %>
-  </div>
-
-  <div class="edit-form">
-    <%= f.submit %>
-  </div>
-<% end %>

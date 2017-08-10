@@ -58,22 +58,24 @@
       <p>Mass: unknown</p>
     <% end %>
 
-    <% @films.sort! %>
-    <ul class="films">
-    <li class="film">Films:</li>
-      <% @films.each_with_index do |film, i| %>
-        <li class="film">
-          <% url_id = film[film.length-2].to_i %>
-          <% if url_id <= 3 %>
-            <% url_id = url_id + 3 %>
-          <% elsif url_id <=6 %>
-            <% url_id = url_id - 3 %>
-          <% end %>
-          Episode <%= url_id %>
-          <% if i < (@films.length - 1) %> ,
-          <% end %>
-        </li>
-      <% end %>
-    </ul>
+    <% if @films %>
+      <% @films.sort! %>
+      <ul class="films">
+      <li class="film">Films:</li>
+        <% @films.each_with_index do |film, i| %>
+          <li class="film">
+            <% url_id = film[film.length-2].to_i %>
+            <% if url_id <= 3 %>
+              <% url_id = url_id + 3 %>
+            <% elsif url_id <=6 %>
+              <% url_id = url_id - 3 %>
+            <% end %>
+            Episode <%= url_id %>
+            <% if i < (@films.length - 1) %> ,
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
   </div>
 </div>

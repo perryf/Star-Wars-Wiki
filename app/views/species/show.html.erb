@@ -44,16 +44,17 @@
       <p>Notable Species: None</p>
     <% end %>
 
-
-    <% @films.sort! %>
-    <ul class="films">
-    <li class="film">Films:</li>
-      <% @films.each_with_index do |film, i| %>
-        <li class="film">
-          Episode <%= film[film.length-2] %>
-          <% if i < (@films.length - 1) %> ,
-          <% end %>
-        </li>
-      <% end %>
-    </ul>
+    <% if @films %>
+      <% @films.sort! %>
+      <ul class="films">
+      <li class="film">Films:</li>
+        <% @films.each_with_index do |film, i| %>
+          <li class="film">
+            Episode <%= film[film.length-2] %>
+            <% if i < (@films.length - 1) %> ,
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
 </div>

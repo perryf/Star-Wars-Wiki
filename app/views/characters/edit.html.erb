@@ -45,7 +45,7 @@
     <% end %>
 
     <div class="edit-form">
-      <%= f.label :vehicles %>
+      <%= f.label :vehicles, "Vehicles (Hold down Cmd or Ctl for multiple)" %>
       <%= f.select :vehicles, Vehicle.all.collect{|vehicle| [vehicle.name, vehicle.id]},
         {:selected => cruisers},
       {:multiple => true} %>

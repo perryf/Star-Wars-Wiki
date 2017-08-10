@@ -102,6 +102,7 @@ h2 {
 }
 
 .show-page {
+  background: rgba(100, 100, 100, 0.3);
   width: 800px;
   margin: auto;
   display: flex;
@@ -153,6 +154,8 @@ h2 {
 
 .form-container {
   background: rgba(100, 100, 100, 0.5);
+  border: rgba(200, 0, 0, .5) solid 2px;
+  border-radius: 5px;
   width: 400px;
   margin: auto;
   display: flex;
@@ -169,6 +172,13 @@ h2 {
   display: block;
   margin: auto;
   width: 300px;
+}
+
+#character_vehicles {
+  display: block;
+  margin: auto;
+  height: 300px;
+  width: 200px
 }
 
 .submit {

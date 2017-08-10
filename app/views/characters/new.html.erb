@@ -1,68 +1,72 @@
-<div class="edit-form">
-  <h2>Create a new Character</h2>
+<div class="edit-page">
+  <div class="edit-form">
+    <h2>Create a new Character</h2>
+  </div>
+  <div class="form-container">
+    <%= form_for (@character) do |f| %>
+    <div class="edit-form">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+
+    <div class="edit-form">
+      <%= f.label :img_url %>
+      <%= f.text_field :img_url %>
+    </div>
+
+    <div class="edit-form">
+      <%= f.label :bio %>
+      <%= f.text_field :bio %>
+    </div>
+
+    <div class="edit-form">
+      <%= f.label :species %>
+      <%= f.text_field :species %>
+    </div>
+
+    <div class="edit-form">
+      <%= f.label :class %>
+      <%= f.text_field :classification %>
+    </div>
+
+    <div class="edit-form">
+      <%= f.label :birth_year %>
+      <%= f.text_field :birth_year %>
+    </div>
+
+    <div class="edit-form">
+      <%= f.label :height %>
+      <%= f.text_field :height %>
+    </div>
+
+    <div class="edit-form">
+      <%= f.label :mass %>
+      <%= f.text_field :mass %>
+    </div>
+
+    <div class="edit-form">
+      <%= f.label :vehicles %>
+      <%= select(:character, :vehicle_ids, Vehicle.all.collect{|vehicle| [vehicle.name, vehicle.id]}) %>
+    </div>
+
+    <div class="edit-form">
+      <%= f.label :species %>
+      <%= select(:character, :species_id, Species.all.collect{|species| [species.name, species.id]}) %>
+    </div>
+
+    <div class="edit-form">
+      <%= f.label :homeworld %>
+      <%= select(:character, :homeworld_id, Homeworld.all.collect{|planet| [planet.name, planet.id]})%>
+    </div>
+
+    <div class="edit-form">
+      <%= f.label :alliance %>
+      <%= select(:character, :alliance_id, Alliance.all.collect{|team| [team.name, team.id]})%>
+    </div>
+
+    <div class="edit-form">
+      <%= f.submit :class => 'submit' %>
+    </div>
+  <% end %>
+  </div>
 </div>
-  <%= form_for (@character) do |f| %>
-  <div class="edit-form">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
-
-  <div class="edit-form">
-    <%= f.label :img_url %>
-    <%= f.text_field :img_url %>
-  </div>
-
-  <div class="edit-form">
-    <%= f.label :bio %>
-    <%= f.text_field :bio %>
-  </div>
-
-  <div class="edit-form">
-    <%= f.label :species %>
-    <%= f.text_field :species %>
-  </div>
-
-  <div class="edit-form">
-    <%= f.label :class %>
-    <%= f.text_field :classification %>
-  </div>
-
-  <div class="edit-form">
-    <%= f.label :birth_year %>
-    <%= f.text_field :birth_year %>
-  </div>
-
-  <div class="edit-form">
-    <%= f.label :height %>
-    <%= f.text_field :height %>
-  </div>
-
-  <div class="edit-form">
-    <%= f.label :mass %>
-    <%= f.text_field :mass %>
-  </div>
-
-  <div class="edit-form">
-    <%= f.label :vehicles %>
-    <%= select(:character, :vehicle_ids, Vehicle.all.collect{|vehicle| [vehicle.name, vehicle.id]}) %>
-  </div>
-
-  <div class="edit-form">
-    <%= f.label :species %>
-    <%= select(:character, :species_id, Species.all.collect{|species| [species.name, species.id]}) %>
-  </div>
-
-  <div class="edit-form">
-    <%= f.label :homeworld %>
-    <%= select(:character, :homeworld_id, Homeworld.all.collect{|planet| [planet.name, planet.id]})%>
-  </div>
-
-  <div class="edit-form">
-    <%= f.label :alliance %>
-    <%= select(:character, :alliance_id, Alliance.all.collect{|team| [team.name, team.id]})%>
-  </div>
-
-  <div class="edit-form">
-    <%= f.submit %>
-  </div>
-<% end %>

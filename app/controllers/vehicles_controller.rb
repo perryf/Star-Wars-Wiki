@@ -11,7 +11,10 @@ class VehiclesController < ApplicationController
   end
   def show
     @vehicle = Vehicle.find(params[:id])
-    @films = JSON.parse(@vehicle.films)
+    begin
+      @films = JSON.parse(@vehicle.films)
+    rescue => e
+    end
   end
   def edit
     @vehicle = Vehicle.find(params[:id])
@@ -25,7 +28,7 @@ class VehiclesController < ApplicationController
     @vehicle = Vehicle.find(params[:id])
     @vehicle.transportations.destroy_all
     @vehicle.destroy
-    redirect_to vehicles_path, notice: "Vehicle was successfully Transport"
+    redirect_to vehicles_path, notice: "Transport was successfully destroyed"
   end
   private
   def vehicle_params

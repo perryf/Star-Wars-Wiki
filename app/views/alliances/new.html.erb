@@ -1,18 +1,22 @@
-<div class="edit-form">
-  <h2>Create a new Alliance</h2>
+<div class="edit-page">
+  <div class="edit-form">
+    <h2>Create a new Alliance</h2>
+  </div>
+  <div class="form-container">
+    <%= form_for (@alliance) do |f| %>
+    <div class="edit-form">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+
+    <div class="edit-form">
+      <%= f.label :img_url %>
+      <%= f.text_field :img_url %>
+    </div>
+
+    <div class="edit-form">
+      <%= f.submit :class => 'submit' %>
+    </div>
+    <% end %>
+  </div>
 </div>
-  <%= form_for (@alliance) do |f| %>
-  <div class="edit-form">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
-
-  <div class="edit-form">
-    <%= f.label :img_url %>
-    <%= f.text_field :img_url %>
-  </div>
-
-  <div class="edit-form">
-    <%= f.submit %>
-  </div>
-<% end %>

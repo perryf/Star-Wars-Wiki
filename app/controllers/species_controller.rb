@@ -15,7 +15,10 @@ class SpeciesController < ApplicationController
 
   def show
     @species = Species.find(params[:id])
-    @films = JSON.parse(@species.films)
+    begin
+      @films = JSON.parse(@species.films)
+    rescue => e
+    end 
   end
 
   def edit
