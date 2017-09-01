@@ -18,7 +18,7 @@ class SpeciesController < ApplicationController
     begin
       @films = JSON.parse(@species.films)
     rescue => e
-    end 
+    end
   end
 
   def edit
@@ -34,7 +34,7 @@ class SpeciesController < ApplicationController
   def destroy
     @species = Species.find(params[:id])
     @species.destroy
-    redirect_to species_index_path, notice: "Species was successfully destoryed"
+    redirect_to species_index_path, notice: "Species was successfully destroyed"
   end
 
   private

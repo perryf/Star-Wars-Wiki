@@ -23,6 +23,11 @@
   src: font-url('star_jedi/starjedi/Starjhol.ttf') format("truetype");
 }
 
+One cool thing you can do in scss is use variable (very useful for defining theme colors /
+easier to make updates quickly);
+
+$link-color: #d09;
+
 body {
   color: white;
   background: image-url("277120-large-star-wars-backgrounds-x-retina.jpg") no-repeat center center fixed;
@@ -31,7 +36,7 @@ body {
 
 a {
   text-decoration: none;
-  color: #d09;
+  color: $link-color;
 }
 
 a:hover {
@@ -198,3 +203,6 @@ h2 {
     width: 300px;
   }
 }
+
+// Good job setting up responsiveness, maybe include font sizing or page layout into
+// the media query

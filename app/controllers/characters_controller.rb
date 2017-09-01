@@ -10,6 +10,8 @@ class CharactersController < ApplicationController
 
   def create
     @character = Character.create!(character_params)
+    # You may want to set up error handling so that if Character fails created (maybe
+    # name is nil) that it doesn't error out
     redirect_to characters_path, notice: "Character was successfully created."
   end
 
@@ -32,6 +34,7 @@ class CharactersController < ApplicationController
     params[:character][:vehicles].each do |vehicle|
       @character.transportations.create(vehicle_id: vehicle)
     end
+    # Maybe instead of wiping and recreating all of them, use find_or_create_by
     redirect_to characters_path, notice: "Character was successfully edited."
   end
 

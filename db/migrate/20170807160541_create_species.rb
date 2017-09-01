@@ -7,6 +7,7 @@ class CreateSpecies < ActiveRecord::Migration[5.1]
       t.string :classification
       t.integer :average_height
       t.integer :average_lifespan
+      # for the two above, you may want to use :decimal
       t.string :skin_colors
       t.string :language
       t.string :films

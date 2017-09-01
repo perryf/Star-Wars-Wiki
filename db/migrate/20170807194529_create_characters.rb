@@ -14,6 +14,10 @@ class CreateCharacters < ActiveRecord::Migration[5.1]
       t.references :alliance, index: true, foreign_key: true
       t.references :homeworld, index: true, foreign_key: true
       t.references :species, index: true, foreign_key: true
+      # good job using the foreign_key constraint
+      # however, you do not need to specify index: true as t.references will automatically
+      # add this constraint
+      # you would want to specify it if you used t.integer :species_id 
       t.timestamps
     end
   end
