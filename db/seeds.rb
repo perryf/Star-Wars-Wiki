@@ -7,6 +7,9 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 require 'open-uri'
 require 'flickraw'
+# you should not need to explicitly require any gems, they should all be required automatically by rails
+
+
 Alliance.destroy_all
 Species.destroy_all
 Homeworld.destroy_all
@@ -16,6 +19,16 @@ Vehicle.destroy_all
 
 FlickRaw.api_key="f438e2d2703a59971491b8810477cd4d"
 FlickRaw.shared_secret="b90683848542d236"
+# ^^ DO NOT ADD API KEYS TO VERSION CONTROL!!!!!!!
+# Instead, use environment variables:
+#
+# FlickRaw.api_key=ENV['FLICKRAW_API_KEY']
+#
+# to set this in bash shell (only lasts until shell is closed):
+#
+# export FLICKRAW_API_KEY='your api key'
+#
+# You could also look into the Dotenv gem
 
 rebel = Alliance.create!({
   name: "Rebels",
@@ -33,6 +46,12 @@ neutral = Alliance.create!({
 })
 
 # Homeworlds Create
+# Think about how you might be able to use recursion to make the number of times
+# a certain entity is created to be based off of what it gets back from SWAPI. Check
+# out my seed example from the mean lab for an example of this (you can ignore the
+# promises as Ruby is synchronous):
+# https://github.com/ga-wdi-exercises/mean-lab/blob/solution-1/db/seeds.js
+
 61.times do |i|
   begin
     planet = JSON.parse(Swapi.get_planet(i + 1))

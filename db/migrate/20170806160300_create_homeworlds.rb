@@ -7,6 +7,7 @@ class CreateHomeworlds < ActiveRecord::Migration[5.1]
       t.string :climate
       t.string :terrain
       t.bigint :population
+      # good use of bigint
       t.string :gravity
       t.string :films
       t.string :url

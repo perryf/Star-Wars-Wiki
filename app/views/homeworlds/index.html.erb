@@ -1,6 +1,7 @@
 <%= link_to "Create a new planet", new_homeworld_path %>
 
 <% @planets = @planets.sort_by { |k| k[:name] }%>
+<%# Move the above logic to the controller, just use ERB to render data %>
 
 <div class="index-all">
   <% @planets.each do |planet| %>

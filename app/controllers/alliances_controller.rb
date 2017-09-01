@@ -1,4 +1,9 @@
 class AlliancesController < ApplicationController
+  # One thing you could do to dry up your code is use before_action to locate an alliance:
+  # before_action :find_alliance
+
+
+
   def index
     @alliances = Alliance.all
   end
@@ -33,6 +38,13 @@ class AlliancesController < ApplicationController
   end
 
   private
+
+  def find_alliance
+    if params[:id]
+      @alliance = Alliance.find(params[:id])
+    end
+  end
+
   def alliance_params
     params.require(:alliance).permit(:name, :img_url)
   end

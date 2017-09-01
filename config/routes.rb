@@ -8,8 +8,9 @@ Rails.application.routes.draw do
   resources :homeworlds do
     resources :characters
   end
+  # Good job setting up multiple navigation paths to see characters
   resources :characters
   resources :vehicles
-  
+
   get "pages" => "pages#index"
 end
