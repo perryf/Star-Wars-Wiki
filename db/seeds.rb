@@ -14,9 +14,6 @@ Transportation.destroy_all
 Character.destroy_all
 Vehicle.destroy_all
 
-# FlickRaw.api_key="f438e2d2703a59971491b8810477cd4d"
-# FlickRaw.shared_secret="b90683848542d236"
-
 FlickRaw.api_key = ENV['FR_API_KEY']
 FlickRaw.shared_secret = ENV['FR_SECRET_KEY']
 
