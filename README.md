@@ -6,7 +6,7 @@ This site is a wikipedia type website specifically for Star Wars.  You can see i
 
 ## Technologies Used
 * This site was built on Ruby on Rails
-* Other tools used were ActiveRecord, CSS, HTML, GIT
+* Other tools used were ActiveRecord, Web APIs(SWAPI/Flickr) CSS, HTML, Git
 
 ## Data Collecting/Outsourcing
 
